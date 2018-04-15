@@ -9,3 +9,4 @@ Es soll einige Lücken schließen, auf die wir in MobiLock (gratis-Version) gest
 - Blockt sofort jede unerlaubte (System-)App
 - Erlaubt den Recent Apps Screen
 - Ist (wie MobiLock) ein Launcher
+- Komplett selbst geschrieben und daher schneller zu fixen

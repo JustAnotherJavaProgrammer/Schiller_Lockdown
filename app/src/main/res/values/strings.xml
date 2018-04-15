@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Schiller-Lockdown</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="systemSettings">Systemeinstellungen</string>
+    <string name="changeLauncher">Launcher ändern</string>
+    <string name="changePIN">PIN ändern</string>
+    <string name="newPIN">Neue PIN:</string>
+    <string name="PIN">PIN</string>
+    <string name="reenterNewPIN">PIN erneut eingeben:</string>
+    <string name="setPIN">PIN festlegen</string>
+    <string name="enterPIN">Bitte PIN eingeben:</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="wrong_pin">Falsche PIN!</string>
+    <string name="PIN_changed_successfully">PIN erfolgreich geändert</string>
+    <string name="PIN_not_identical">Bitte geben Sie in beiden Feldern die gleiche PIN ein.</string>
+    <string name="PIN_too_short">Die PIN muss mindestens 4 Zeichen lang sein.</string>
+    <string name="whitelist">Whitelist</string>
+    <string name="allowAndForbidApps">Apps erlauben und verbieten:</string>
+    <string name="foregroundAppChecker_service">Schiller-Lockdown App-Überprüfung</string>
+    <string name="activateBackgroundService">Hintergrundservice aktivieren (Schiller-Lockdown App-Überprüfung)</string>
+    <string name="foregroundchecker_service_description">Schiller-Lockdown überprüft alle Apps, die in den Vordergrund kommen darauf, ob sie gesperrt sind und beendet diese, wenn nötig.</string>
+    <string name="about">Über diese App</string>
+    <string name="developed_by">Entwickelt von:</string>
+    <string name="developers_name">Lukas Drescher</string>
+    <string name="moreInformation">Weitere Informationen:</string>
+    <string name="infoText">Schiller-Lockdown wurde hauptsächlich während der Osterferien 2018 für die Tablets des Friedrich-Schiller-Gymnasiums in Preetz entwickelt. Es soll die Nutzer daran hindern, Änderungen an der Konfiguration der Tablets vorzunehmen, und wurde mit dem Ziel Designt, möglichst einfach bedienbar zu sein.\nHINWEIS: Um die bestmögliche Sicherheit zu gewährleisten, muss die App-Überwachung in den Bedienungshilfen aktiviert werden.</string>
+    <string name="lockscreen_undisableable">Der Sperrbildschirm konnte nicht deaktiviert werden.</string>
+    <string name="status_bar_unblockable">Die Statusleiste konnte nicht geblockt werden.</string>
+</resources>

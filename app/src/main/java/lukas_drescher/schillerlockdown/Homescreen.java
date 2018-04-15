@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,9 +57,11 @@ public class Homescreen extends AppCompatActivity {
         try {
             preventStatusBarExpansion(getApplicationContext(), this, false);
         } catch (RuntimeException e) {
+            Log.e("statusBarBlocker", "first error");
             try {
                 preventStatusBarExpansion(getApplicationContext(), this, true);
             } catch (RuntimeException e2) {
+                Log.e("statusBarBlocker", "second error");
                 Toast.makeText(getApplicationContext(), R.string.status_bar_unblockable, Toast.LENGTH_LONG).show();
             }
         }
@@ -265,6 +268,7 @@ public class Homescreen extends AppCompatActivity {
         try {
             viewGroup.setVisibility(customViewGroup.INVISIBLE);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -276,9 +280,9 @@ public class Homescreen extends AppCompatActivity {
 
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
         if (overlay) {
-            localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
-        } else {
             localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+        } else {
+            localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         }
         localLayoutParams.gravity = Gravity.TOP;
         localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
@@ -305,5 +309,6 @@ public class Homescreen extends AppCompatActivity {
         assert manager != null;
         manager.addView(view, localLayoutParams);
         viewGroup = view;
+        Log.v("status_bar_blocker", "ADDED");
     }
 }

@@ -8,3 +8,4 @@ Es soll einige Lücken schließen, auf die wir in MobiLock (gratis-Version) gest
 - Wie MobiLock durch eine PIN geschützt
 - Blockt sofort jede unerlaubte (System-)App
 - Erlaubt den Recent Apps Screen
+- Ist (wie MobiLock) ein Launcher

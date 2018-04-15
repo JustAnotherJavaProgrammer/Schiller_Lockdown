@@ -34,6 +34,9 @@ public class CheckForegroundApp extends AccessibilityService {
         if (!event.getPackageName().equals(foregroundActivity)) {
             foregroundActivity = event.getPackageName().toString();
             if (!isAllowed(foregroundActivity)) {
+                // Close every kind of system dialog
+                Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+                sendBroadcast(closeDialog);
                 Log.v("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
                 Intent i = new Intent(getApplicationContext(), Homescreen.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -23,8 +23,8 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -159,7 +159,7 @@ public class Homescreen extends AppCompatActivity {
         });
     }
 
-    ListView list;
+    GridView list;
 
     private void loadListView() {
         list = findViewById(R.id.apps_list);

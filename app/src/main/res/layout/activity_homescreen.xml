@@ -7,9 +7,13 @@
     android:visibility="visible"
     tools:context=".Homescreen">
 
-    <ListView
+    <GridView
         android:id="@+id/apps_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
-
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:numColumns="9"
+        android:verticalSpacing="8dp"
+        android:horizontalSpacing="8dp"
+        android:stretchMode="columnWidth" />
 </android.support.constraint.ConstraintLayout>

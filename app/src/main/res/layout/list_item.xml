@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:padding="10dp">
 
     <ImageView
         android:id="@+id/item_app_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/icon" />
 
     <TextView
         android:id="@+id/item_app_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/item_app_icon"
-        android:paddingLeft="10dp"
-        android:textSize="72px"
-        android:textStyle="bold"
-        android:textColor="#000000" />
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/item_app_icon"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:background="#7f000000"
+        android:gravity="center" />
 
 </RelativeLayout>

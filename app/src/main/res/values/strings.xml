@@ -27,4 +27,5 @@
     <string name="infoText">Schiller-Lockdown wurde hauptsächlich während der Osterferien 2018 für die Tablets des Friedrich-Schiller-Gymnasiums in Preetz entwickelt. Es soll die Nutzer daran hindern, Änderungen an der Konfiguration der Tablets vorzunehmen, und wurde mit dem Ziel Designt, möglichst einfach bedienbar zu sein.\nHINWEIS: Um die bestmögliche Sicherheit zu gewährleisten, muss die App-Überwachung in den Bedienungshilfen aktiviert werden.</string>
     <string name="lockscreen_undisableable">Der Sperrbildschirm konnte nicht deaktiviert werden.</string>
     <string name="status_bar_unblockable">Die Statusleiste konnte nicht geblockt werden.</string>
+    <string name="icon">Appicon</string>
 </resources>

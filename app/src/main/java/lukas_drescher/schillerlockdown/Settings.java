@@ -103,7 +103,7 @@ public class Settings extends AppCompatActivity {
                 apps) {
             public View getView(int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
-                    convertView = getLayoutInflater().inflate(R.layout.list_item, null);
+                    convertView = getLayoutInflater().inflate(R.layout.settings_list_item, null);
                 }
 
                 if (apps.get(position).isAllowed) {
@@ -112,13 +112,13 @@ public class Settings extends AppCompatActivity {
                     convertView.setBackgroundColor(Color.TRANSPARENT);
                 }
 
-                ImageView appIcon = convertView.findViewById(R.id.item_app_icon);
+                ImageView appIcon = convertView.findViewById(R.id.settings_item_app_icon);
                 appIcon.setImageDrawable(apps.get(position).icon);
                 appIcon.setAdjustViewBounds(true);
                 appIcon.setMaxHeight(96);
                 appIcon.setMaxWidth(96);
 
-                TextView appLabel = convertView.findViewById(R.id.item_app_label);
+                TextView appLabel = convertView.findViewById(R.id.settings_item_app_label);
                 appLabel.setText(apps.get(position).label + " (" + apps.get(position).name + ")");
 
                 return convertView;

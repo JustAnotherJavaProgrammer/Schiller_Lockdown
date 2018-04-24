@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:numColumns="9"
-        android:verticalSpacing="8dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="12dp"
         android:horizontalSpacing="8dp"
-        android:stretchMode="columnWidth" />
+        android:stretchMode="spacingWidthUniform"
+        android:columnWidth="96dp" />
 </android.support.constraint.ConstraintLayout>

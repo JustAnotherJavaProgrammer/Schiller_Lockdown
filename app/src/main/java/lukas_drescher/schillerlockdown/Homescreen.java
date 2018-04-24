@@ -179,6 +179,8 @@ public class Homescreen extends AppCompatActivity {
                 appIcon.setAdjustViewBounds(true);
                 appIcon.setMaxHeight(96);
                 appIcon.setMaxWidth(96);
+                appIcon.setMinimumHeight(96);
+                appIcon.setMinimumWidth(96);
 
                 TextView appLabel = convertView.findViewById(R.id.item_app_label);
                 appLabel.setText(apps.get(position).label);

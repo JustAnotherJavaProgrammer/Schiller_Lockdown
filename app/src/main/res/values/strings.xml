@@ -24,7 +24,7 @@
     <string name="developed_by">Entwickelt von:</string>
     <string name="developers_name">Lukas Drescher</string>
     <string name="moreInformation">Weitere Informationen:</string>
-    <string name="infoText">Schiller-Lockdown wurde hauptsächlich während der Osterferien 2018 für die Tablets des Friedrich-Schiller-Gymnasiums in Preetz entwickelt. Es soll die Nutzer daran hindern, Änderungen an der Konfiguration der Tablets vorzunehmen, und wurde mit dem Ziel Designt, möglichst einfach bedienbar zu sein.\nHINWEIS: Um die bestmögliche Sicherheit zu gewährleisten, muss die App-Überwachung in den Bedienungshilfen aktiviert werden.</string>
+    <string name="infoText">Schiller-Lockdown wurde hauptsächlich während der Osterferien 2018 für die Tablets des Friedrich-Schiller-Gymnasiums in Preetz entwickelt. Es soll die Nutzer daran hindern, Änderungen an der Konfiguration der Tablets vorzunehmen, und wurde mit dem Ziel Designt, möglichst einfach bedienbar zu sein.\nWICHTIG: Diese App befindet sich noch in der Testphase. Schreibt bitte bei Problemen eine E-Mail direkt an mich: lukas.drescher@fsg-preetz.org\nHINWEIS: Um die bestmögliche Sicherheit zu gewährleisten, muss die App-Überwachung in den Bedienungshilfen aktiviert werden.</string>
     <string name="lockscreen_undisableable">Der Sperrbildschirm konnte nicht deaktiviert werden.</string>
     <string name="status_bar_unblockable">Die Statusleiste konnte nicht geblockt werden.</string>
     <string name="icon">Appicon</string>

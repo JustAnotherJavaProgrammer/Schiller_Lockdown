@@ -1,8 +1,14 @@
 package lukas_drescher.schillerlockdown;
 
 import android.accessibilityservice.AccessibilityService;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowId;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
 import java.util.ArrayList;
@@ -17,7 +23,7 @@ public class CheckForegroundApp extends AccessibilityService {
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
-        Log.v("checker", "connected!");
+        Log.v("checker", "Connected!");
     }
 
     public void loadWhiteList() {
@@ -43,6 +49,9 @@ public class CheckForegroundApp extends AccessibilityService {
                 i.putExtra("EXIT", true);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
+            } else {
+                // TODO Disable lock screen
+                // HOTFIX NEEDED
             }
         }
         //}

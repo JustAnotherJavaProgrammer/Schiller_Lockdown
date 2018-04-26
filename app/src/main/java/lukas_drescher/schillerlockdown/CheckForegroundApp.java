@@ -1,14 +1,8 @@
 package lukas_drescher.schillerlockdown;
 
 import android.accessibilityservice.AccessibilityService;
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowId;
-import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
 import java.util.ArrayList;
@@ -43,7 +37,7 @@ public class CheckForegroundApp extends AccessibilityService {
                 // Close every kind of system dialog
                 Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
                 sendBroadcast(closeDialog);
-                Log.v("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
+                Log.w("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
                 Intent i = new Intent(getApplicationContext(), Homescreen.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 i.putExtra("EXIT", true);
@@ -52,6 +46,7 @@ public class CheckForegroundApp extends AccessibilityService {
             } else {
                 // TODO Disable lock screen
                 // HOTFIX NEEDED
+
             }
         }
         //}

@@ -4,13 +4,11 @@ import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
 public class customViewGroup extends ViewGroup {
 
     public customViewGroup(Context context) {
         super(context);
-        addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
     }
 
     @Override

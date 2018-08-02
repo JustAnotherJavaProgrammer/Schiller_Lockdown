@@ -54,15 +54,17 @@ public class Homescreen extends AppCompatActivity {
         loadApps();
         loadListView();
         addClickListener();
-        try {
-            preventStatusBarExpansion(getApplicationContext(), this, false);
-        } catch (RuntimeException e) {
-            Log.e("statusBarBlocker", "first error");
+        if (true) {
             try {
-                preventStatusBarExpansion(getApplicationContext(), this, true);
-            } catch (RuntimeException e2) {
-                Log.e("statusBarBlocker", "second error");
-                Toast.makeText(getApplicationContext(), R.string.status_bar_unblockable, Toast.LENGTH_LONG).show();
+                preventStatusBarExpansion(getApplicationContext(), this, false);
+            } catch (RuntimeException e) {
+                Log.e("statusBarBlocker", "first error");
+                try {
+                    preventStatusBarExpansion(getApplicationContext(), this, true);
+                } catch (RuntimeException e2) {
+                    Log.e("statusBarBlocker", "second error");
+                    Toast.makeText(getApplicationContext(), R.string.status_bar_unblockable, Toast.LENGTH_LONG).show();
+                }
             }
         }
         if (getDefaultSharedPreferences(getApplicationContext()).getInt(getString(R.string.PIN), -1) == -1) {
@@ -115,13 +117,7 @@ public class Homescreen extends AppCompatActivity {
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (pinIsRight(pin)) {
-                    Intent intent = new Intent(getApplicationContext(), Settings.class);
-                    startActivity(intent);
-                } else {
-                    kioskMode = true;
-                    Toast.makeText(getApplicationContext(), R.string.wrong_pin, Toast.LENGTH_SHORT).show();
-                }
+                PINrequestDialogCheckPIN(pin);
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -131,6 +127,22 @@ public class Homescreen extends AppCompatActivity {
             }
         });
         etPINrequest = builder.show().findViewById(R.id.PINfield);
+        etPINrequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PINrequestDialogCheckPIN(pin);
+            }
+        });
+    }
+
+    private void PINrequestDialogCheckPIN(final int pin) {
+        if (pinIsRight(pin)) {
+            Intent intent = new Intent(getApplicationContext(), Settings.class);
+            startActivity(intent);
+        } else {
+            kioskMode = true;
+            Toast.makeText(getApplicationContext(), R.string.wrong_pin, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public boolean pinIsRight(int pin) {
@@ -311,6 +323,6 @@ public class Homescreen extends AppCompatActivity {
         assert manager != null;
         manager.addView(view, localLayoutParams);
         viewGroup = view;
-        Log.v("status_bar_blocker", "ADDED");
+        Log.d("status_bar_blocker", "ADDED");
     }
 }

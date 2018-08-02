@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class customViewGroup extends ViewGroup {
 
@@ -11,12 +14,17 @@ public class customViewGroup extends ViewGroup {
         super(context);
     }
 
+    //Context context;
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
     }
 
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.v("Status bar blocker", "BLOCKED!");
+        Log.d("Status bar blocker", "BLOCKED!");
+        if (getDefaultSharedPreferences(getContext()).getBoolean("show_Statusbar_blocked_message", true)) {
+            Toast.makeText(getContext(), R.string.status_bar_blocked, Toast.LENGTH_SHORT).show();
+        }
         return true;
     }
 

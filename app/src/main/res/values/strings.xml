@@ -28,4 +28,7 @@
     <string name="lockscreen_undisableable">Der Sperrbildschirm konnte nicht deaktiviert werden.</string>
     <string name="status_bar_unblockable">Die Statusleiste konnte nicht geblockt werden.</string>
     <string name="icon">Appicon</string>
+    <string name="status_bar_blocked">Die Statusleiste wurde gesperrt.</string>
+    <string name="txtVersion">Version:</string>
+    <string name="version" translatable="false">0.8.1 (RC 8+) DEV-BUILD</string>
 </resources>

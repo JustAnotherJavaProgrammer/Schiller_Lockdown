@@ -29,17 +29,15 @@
         android:id="@+id/systemSettings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="openSystemSettings"
         android:text="@string/systemSettings"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/allowAndForbidApps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/changePIN"
-        app:layout_constraintTop_toBottomOf="@+id/changeLauncher"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="188dp" />
 
@@ -47,13 +45,12 @@
         android:id="@+id/changePIN"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="changePIN"
         android:text="@string/changePIN"
-        app:layout_constraintBottom_toTopOf="@+id/allowAndForbidApps"
+        app:layout_constraintBottom_toBottomOf="@+id/systemSettings"
         app:layout_constraintEnd_toStartOf="@+id/systemSettings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeLauncher" />
@@ -82,21 +79,35 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/appList"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changePIN" />
+        app:layout_constraintTop_toBottomOf="@+id/showStatusBarBlockedMessage" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="activateBackgroundService"
         android:text="@string/activateBackgroundService"
-        app:layout_constraintBottom_toTopOf="@+id/systemSettings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/changeLauncher"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/showStatusBarBlockedMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        android:switchPadding="8dp"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat"
+        android:text="@string/show_message_when_status_bar_blocked"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/systemSettings" />
 
 </android.support.constraint.ConstraintLayout>

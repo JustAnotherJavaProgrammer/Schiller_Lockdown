@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        setSwitches();
         loadWhiteList();
         loadApps();
         loadListView();
@@ -42,7 +45,7 @@ public class Settings extends AppCompatActivity {
     }
 
     public void saveWhiteList() {
-        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putStringSet(getString(R.string.whitelist), new HashSet<>(whitelist)).commit();
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putStringSet(getString(R.string.whitelist), new HashSet<>(whitelist)).apply();
         String whitelist = "";
         for (int i = 0; i < this.whitelist.size(); i++) {
             if (!whitelist.equals(""))
@@ -158,6 +161,17 @@ public class Settings extends AppCompatActivity {
             @Override
             public int compare(AppDetail a1, AppDetail a2) {
                 return a1.label.toString().compareToIgnoreCase(a2.label.toString());
+            }
+        });
+    }
+
+    public void setSwitches() {
+        Switch showStatusBarBlockedMessage = findViewById(R.id.showStatusBarBlockedMessage);
+        showStatusBarBlockedMessage.setChecked(getDefaultSharedPreferences(getApplicationContext()).getBoolean("show_Statusbar_blocked_message", false));
+        showStatusBarBlockedMessage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("show_Statusbar_blocked_message", isChecked).apply();
             }
         });
     }

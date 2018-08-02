@@ -44,7 +44,7 @@ public class ChangePIN extends AppCompatActivity {
             if (newPIN.getText().toString().equals(PIN2.getText().toString())) {
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
                 editor.putInt(getString(R.string.PIN), Integer.valueOf(newPIN.getText().toString()));
-                editor.commit();
+                editor.apply();
                 startActivity(new Intent(getApplicationContext(), Settings.class));
                 finish();
                 Toast.makeText(getApplicationContext(), R.string.PIN_changed_successfully, Toast.LENGTH_SHORT).show();

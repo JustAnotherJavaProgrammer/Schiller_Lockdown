@@ -22,7 +22,7 @@ public class customViewGroup extends ViewGroup {
 
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         Log.d("Status bar blocker", "BLOCKED!");
-        if (getDefaultSharedPreferences(getContext()).getBoolean("show_Statusbar_blocked_message", true)) {
+        if (getDefaultSharedPreferences(getContext()).getBoolean("show_Statusbar_blocked_message", false)) {
             Toast.makeText(getContext(), R.string.status_bar_blocked, Toast.LENGTH_SHORT).show();
         }
         return true;

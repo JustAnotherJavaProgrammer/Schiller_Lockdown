@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/developed_by" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtviewVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

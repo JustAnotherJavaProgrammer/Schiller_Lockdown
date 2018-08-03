@@ -50,6 +50,7 @@
         android:layout_marginTop="8dp"
         android:onClick="changePIN"
         android:text="@string/changePIN"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/systemSettings"
         app:layout_constraintEnd_toStartOf="@+id/systemSettings"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +64,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,9 +79,10 @@
         android:layout_marginTop="8dp"
         android:text="@string/allowAndForbidApps"
         android:textColor="@color/colorPrimary"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/appList"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showStatusBarBlockedMessage" />
+        app:layout_constraintTop_toBottomOf="@+id/switchDeleteDownloads" />
 
     <Button
         android:id="@+id/button"
@@ -90,6 +93,7 @@
         android:layout_marginTop="8dp"
         android:onClick="activateBackgroundService"
         android:text="@string/activateBackgroundService"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/changeLauncher"
         app:layout_constraintTop_toTopOf="parent" />
@@ -101,13 +105,43 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:checked="true"
+        android:checked="false"
         android:switchPadding="8dp"
         android:switchTextAppearance="@style/TextAppearance.AppCompat"
         android:text="@string/show_message_when_status_bar_blocked"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/systemSettings" />
+
+    <Switch
+        android:id="@+id/cover_statusbar_completely"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:checked="false"
+        android:switchPadding="8dp"
+        android:text="@string/cover_statusbar_completely"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showStatusBarBlockedMessage" />
+
+    <Switch
+        android:id="@+id/switchDeleteDownloads"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        android:text="@string/deleteDownloadsAtMidnightAndOnStartup"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cover_statusbar_completely" />
 
 </android.support.constraint.ConstraintLayout>

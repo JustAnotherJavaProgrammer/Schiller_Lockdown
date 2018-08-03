@@ -10,6 +10,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Intent myIntent = new Intent(context, Homescreen.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("Sartup", true);
         context.startActivity(myIntent);
     }
 }

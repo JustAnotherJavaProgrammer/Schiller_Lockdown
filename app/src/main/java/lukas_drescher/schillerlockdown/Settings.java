@@ -174,6 +174,22 @@ public class Settings extends AppCompatActivity {
                 getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("show_Statusbar_blocked_message", isChecked).apply();
             }
         });
+        Switch coverStatusBarCompletely = findViewById(R.id.cover_statusbar_completely);
+        coverStatusBarCompletely.setChecked(getDefaultSharedPreferences(getApplicationContext()).getBoolean("cover_statusbar_completely", false));
+        coverStatusBarCompletely.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("cover_statusbar_completely", isChecked).apply();
+            }
+        });
+        Switch switchDeleteDownloads = findViewById(R.id.switchDeleteDownloads);
+        switchDeleteDownloads.setChecked(getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", true));
+        switchDeleteDownloads.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("DeleteDownloads", isChecked).apply();
+            }
+        });
     }
 
     @Override

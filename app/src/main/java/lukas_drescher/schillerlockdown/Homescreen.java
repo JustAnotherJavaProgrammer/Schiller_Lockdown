@@ -40,6 +40,10 @@ public class Homescreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (getIntent().getBooleanExtra("Sartup", false) && getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", true)) {
+            DownloadDeletionTool.deleteDownloads();
+            Toast.makeText(getApplicationContext(), R.string.DownloadsDeleted, Toast.LENGTH_SHORT).show();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
         try {
@@ -54,19 +58,19 @@ public class Homescreen extends AppCompatActivity {
         loadApps();
         loadListView();
         addClickListener();
-        if (true) {
             try {
                 preventStatusBarExpansion(getApplicationContext(), this, false);
             } catch (RuntimeException e) {
                 Log.e("statusBarBlocker", "first error");
+                e.printStackTrace();
                 try {
                     preventStatusBarExpansion(getApplicationContext(), this, true);
                 } catch (RuntimeException e2) {
                     Log.e("statusBarBlocker", "second error");
+                    e.printStackTrace();
                     Toast.makeText(getApplicationContext(), R.string.status_bar_unblockable, Toast.LENGTH_LONG).show();
                 }
             }
-        }
         if (getDefaultSharedPreferences(getApplicationContext()).getInt(getString(R.string.PIN), -1) == -1) {
             kioskMode = false;
             startActivity(new Intent(getApplicationContext(), ChangePIN.class));

@@ -43,6 +43,7 @@ public class Homescreen extends AppCompatActivity {
         if (getIntent().getBooleanExtra("Sartup", false) && getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", true)) {
             DownloadDeletionTool.deleteDownloads();
             Toast.makeText(getApplicationContext(), R.string.DownloadsDeleted, Toast.LENGTH_SHORT).show();
+            DownloadDeletionTool.setAlarm(getApplicationContext());
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);

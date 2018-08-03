@@ -188,6 +188,11 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("DeleteDownloads", isChecked).apply();
+                if (isChecked) {
+                    DownloadDeletionTool.setAlarm(getApplicationContext());
+                } else {
+                    DownloadDeletionTool.cancelAlarm(getApplicationContext());
+                }
             }
         });
     }

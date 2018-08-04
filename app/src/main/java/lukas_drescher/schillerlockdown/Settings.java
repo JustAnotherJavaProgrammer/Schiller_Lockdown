@@ -183,7 +183,7 @@ public class Settings extends AppCompatActivity {
             }
         });
         Switch switchDeleteDownloads = findViewById(R.id.switchDeleteDownloads);
-        switchDeleteDownloads.setChecked(getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", true));
+        switchDeleteDownloads.setChecked(getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", false));
         switchDeleteDownloads.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

@@ -28,8 +28,12 @@ public class CheckForegroundApp extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Log.w("checker", AccessibilityEvent.eventTypeToString(event.getEventType()) + " (" + event.getPackageName() + ")");
-        Log.d("checker", event.getClassName().toString());
+        Log.d("checker", AccessibilityEvent.eventTypeToString(event.getEventType()) + " (" + event.getPackageName() + ")");
+        try {
+            Log.d("checker", event.getClassName().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         loadWhiteList();
         //if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
         if (foregroundActivity == null || !event.getPackageName().equals(foregroundActivity.getPackageName())) {

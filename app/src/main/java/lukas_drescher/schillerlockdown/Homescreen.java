@@ -11,6 +11,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,7 +41,8 @@ public class Homescreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getIntent().getBooleanExtra("Sartup", false) && getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", true)) {
+        if ((getIntent().getBooleanExtra("Startup", false) || SystemClock.elapsedRealtime() < 5 * 1000 * 60) && getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", false)) {
+            Log.d("Homescreen, DDT", "Starting deleting downloads on startup...");
             DownloadDeletionTool.deleteDownloads();
             Toast.makeText(getApplicationContext(), R.string.DownloadsDeleted, Toast.LENGTH_SHORT).show();
             DownloadDeletionTool.setAlarm(getApplicationContext());
@@ -54,6 +56,7 @@ public class Homescreen extends AppCompatActivity {
         }
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
         final Drawable wallpaperDrawable = wallpaperManager.getDrawable();
+        ImageView backgroundView = new ImageView(this);
         findViewById(R.id.apps_list).setBackground(wallpaperDrawable);
         loadWhiteList();
         loadApps();

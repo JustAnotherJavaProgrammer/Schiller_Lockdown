@@ -42,6 +42,7 @@
         <service
             android:name=".CheckForegroundApp"
             android:label="@string/foregroundAppChecker_service"
+            android:icon="@color/colorAccent"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <meta-data
                 android:name="android.accessibilityservice"
@@ -51,6 +52,8 @@
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
         </service>
+
+        <service android:name=".DownloadDeletionTool" />
 
         <activity
             android:name=".Settings"

@@ -1,8 +1,6 @@
 package lukas_drescher.schillerlockdown;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,20 +14,48 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class customViewGroup extends LinearLayout {
 
-    @SuppressLint("ResourceAsColor")
+    private boolean stillNotDestroyed = true;
+
     public customViewGroup(Context context) {
         super(context);
         if (getDefaultSharedPreferences(getContext()).getBoolean("cover_statusbar_completely", false)) {
-            setBackgroundColor(Color.rgb(111, 131, 192));
             Log.d("LayoutInflater", "starting...");
             LayoutInflater.from(getContext()).inflate(R.layout.statusbar_pro, this, true).setVisibility(VISIBLE);
-            setCurrentTimeTextView();
+            makeHandlerForClock();
         }
     }
 
-    public void setCurrentTimeTextView() {
+    public void makeHandlerForClock() {
+        if (stillNotDestroyed) {
+            new android.os.Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    makeHandlerForClock();
+                }
+            }, setCurrentTimeTextView());
+        }
+    }
+
+    public long setCurrentTimeTextView() {
         Calendar currentTime = Calendar.getInstance();
-        ((TextView) findViewById(R.id.txtviewCurrentTime)).setText(currentTime.get(Calendar.HOUR_OF_DAY) + ":" + currentTime.get(Calendar.MINUTE));
+        ((TextView) findViewById(R.id.txtviewCurrentTime)).setText(addZeroIfNeeded(currentTime.get(Calendar.HOUR_OF_DAY)) + ":" + addZeroIfNeeded(currentTime.get(Calendar.MINUTE)));
+        currentTime = Calendar.getInstance();
+        currentTime.setTimeInMillis(currentTime.getTimeInMillis() + 60000);
+        currentTime.set(Calendar.SECOND, 0);
+        currentTime.set(Calendar.MILLISECOND, 0);
+        long result = currentTime.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+        if (result > 0) {
+//          Log.d("setCurrentTimeResult", "Wait for "+ result + " millis");
+            return result;
+        }
+        return setCurrentTimeTextView();
+    }
+
+    public String addZeroIfNeeded(int i) {
+        if (i < 10) {
+            return "0" + i;
+        }
+        return String.valueOf(i);
     }
 
     //Context context;
@@ -46,6 +72,11 @@ public class customViewGroup extends LinearLayout {
         return true;
     }
 
+    @Override
+    public void finalize() throws Throwable {
+        stillNotDestroyed = false;
+        super.finalize();
+    }
     // @Override
     // public void onWindowFocusChanged(boolean hasWindowFocus) {
     //    super.onWindowFocusChanged(hasWindowFocus);

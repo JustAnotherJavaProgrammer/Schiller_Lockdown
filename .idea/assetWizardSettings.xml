@@ -78,8 +78,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_info_white_24px" />
-                            <entry key="sourceFile" value="D:\lukas\Downloads\ic_info_white_24px.svg" />
+                            <entry key="outputName" value="ic_baseline_battery_unknown" />
+                            <entry key="sourceFile" value="D:\lukas\Downloads\baseline-battery_unknown-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

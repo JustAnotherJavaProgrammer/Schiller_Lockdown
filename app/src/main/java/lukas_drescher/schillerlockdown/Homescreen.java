@@ -62,10 +62,10 @@ public class Homescreen extends AppCompatActivity {
         loadApps();
         loadListView();
         addClickListener();
-            try {
-                preventStatusBarExpansion(getApplicationContext(), this, false);
-            } catch (RuntimeException e) {
-                Log.e("statusBarBlocker", "first error");
+        try {
+            preventStatusBarExpansion(getApplicationContext(), this, false);
+        } catch (RuntimeException e) {
+            Log.e("statusBarBlocker", "first error");
                 e.printStackTrace();
                 try {
                     preventStatusBarExpansion(getApplicationContext(), this, true);

@@ -1,6 +1,9 @@
 package lukas_drescher.schillerlockdown;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,6 +30,7 @@ public class customViewGroup extends LinearLayout {
 
     public void makeHandlerForClock() {
         if (stillNotDestroyed) {
+            setBatteryStateTextViewAndCorrespondingDrawable();
             new android.os.Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -45,10 +49,63 @@ public class customViewGroup extends LinearLayout {
         currentTime.set(Calendar.MILLISECOND, 0);
         long result = currentTime.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
         if (result > 0) {
-//          Log.d("setCurrentTimeResult", "Wait for "+ result + " millis");
             return result;
         }
         return setCurrentTimeTextView();
+    }
+
+    public void setBatteryStateTextViewAndCorrespondingDrawable() {
+        Intent batteryStatus = getContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        TextView txtviewBatteryState = findViewById(R.id.txtviewBatteryState);
+        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
+        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        int batteryPct = (int) (Math.round((level / (double) scale) * 100));
+        txtviewBatteryState.setCompoundDrawablesRelativeWithIntrinsicBounds(getContext().getDrawable(getBatteryImage(isCharging, batteryPct)), null, null, null);
+        txtviewBatteryState.setText(batteryPct + "%");
+    }
+
+    public int getBatteryImage(boolean charging, int percentage) {
+        if (charging) {
+            if (percentage <= 20) {
+                return R.drawable.ic_baseline_battery_charging_20;
+            } else if (percentage <= 30) {
+                return R.drawable.ic_baseline_battery_charging_30;
+            } else if (percentage <= 30) {
+                return R.drawable.ic_baseline_battery_charging_30;
+            } else if (percentage <= 50) {
+                return R.drawable.ic_baseline_battery_charging_50;
+            } else if (percentage <= 60) {
+                return R.drawable.ic_baseline_battery_charging_60;
+            } else if (percentage <= 80) {
+                return R.drawable.ic_baseline_battery_charging_80;
+            } else if (percentage <= 90) {
+                return R.drawable.ic_baseline_battery_charging_90;
+            } else if (percentage <= 100) {
+                return R.drawable.ic_baseline_battery_charging_full;
+            }
+        } else {
+            if (percentage <= 20) {
+                return R.drawable.ic_baseline_battery_20;
+            } else if (percentage <= 30) {
+                return R.drawable.ic_baseline_battery_30;
+            } else if (percentage <= 30) {
+                return R.drawable.ic_baseline_battery_30;
+            } else if (percentage <= 50) {
+                return R.drawable.ic_baseline_battery_50;
+            } else if (percentage <= 60) {
+                return R.drawable.ic_baseline_battery_60;
+            } else if (percentage <= 80) {
+                return R.drawable.ic_baseline_battery_80;
+            } else if (percentage <= 90) {
+                return R.drawable.ic_baseline_battery_90;
+            } else if (percentage <= 100) {
+                return R.drawable.ic_baseline_battery_full;
+            }
+        }
+        return R.drawable.ic_baseline_battery_unknown;
     }
 
     public String addZeroIfNeeded(int i) {
@@ -76,6 +133,7 @@ public class customViewGroup extends LinearLayout {
     public void finalize() throws Throwable {
         stillNotDestroyed = false;
         super.finalize();
+        Log.d("customViewGroup", "finalized");
     }
     // @Override
     // public void onWindowFocusChanged(boolean hasWindowFocus) {

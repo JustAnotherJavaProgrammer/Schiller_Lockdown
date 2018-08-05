@@ -17,13 +17,36 @@
         android:textColor="@android:color/white" />
 
     <TextView
+        android:id="@+id/txtviewWifiState"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:drawableRight="@drawable/ic_baseline_network_wifi"
+        android:gravity="right|center_vertical"
+        android:paddingLeft="8dp" />
+
+    <TextView
+        android:id="@+id/txtviewBatteryState"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:drawableStart="@drawable/ic_baseline_battery_unknown"
+        android:foregroundGravity="right|center_vertical"
+        android:gravity="right|center_vertical"
+        android:paddingEnd="8dp"
+        android:paddingLeft="8dp"
+        android:text="@string/unknown_percentage"
+        android:textColor="@android:color/white" />
+
+    <TextView
         android:id="@+id/txtviewCurrentTime"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0"
         android:gravity="right|center_vertical"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="@string/currentTime"
         android:textColor="@android:color/white" />
+
 </LinearLayout>

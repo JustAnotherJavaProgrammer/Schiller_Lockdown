@@ -288,8 +288,8 @@ public class Homescreen extends AppCompatActivity {
         }
         super.onDestroy();
         try {
-            viewGroup.setVisibility(customViewGroup.INVISIBLE);
-        } catch (Exception e) {
+            viewGroup.finalize();
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }

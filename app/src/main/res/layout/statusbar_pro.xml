@@ -9,11 +9,22 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:drawableStart="@drawable/ic_outline_lock"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="@string/schiller_lockdown_activated"
         android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/txtviewBluetoothState"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:drawableRight="@drawable/ic_baseline_bluetooth_disabled"
+        android:gravity="right|center_vertical"
+        android:paddingLeft="8dp"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -23,7 +34,7 @@
         android:layout_weight="0"
         android:drawableRight="@drawable/ic_baseline_network_wifi"
         android:gravity="right|center_vertical"
-        android:paddingLeft="8dp" />
+        android:paddingLeft="2dp" />
 
     <TextView
         android:id="@+id/txtviewBatteryState"
@@ -34,7 +45,7 @@
         android:foregroundGravity="right|center_vertical"
         android:gravity="right|center_vertical"
         android:paddingEnd="8dp"
-        android:paddingLeft="8dp"
+        android:paddingLeft="2dp"
         android:text="@string/unknown_percentage"
         android:textColor="@android:color/white" />
 

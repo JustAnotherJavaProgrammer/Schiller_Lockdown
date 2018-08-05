@@ -1,5 +1,6 @@
 package lukas_drescher.schillerlockdown;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -35,6 +36,7 @@ public class customViewGroup extends LinearLayout {
         if (stillNotDestroyed) {
             setBatteryStateTextViewAndCorrespondingDrawable();
             setWifiStateDrawableTextView();
+            setBluetoothStateDrawableTextView();
             new android.os.Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -144,6 +146,25 @@ public class customViewGroup extends LinearLayout {
             drawableID = R.drawable.ic_baseline_wifi_off;
         }
         ((TextView) findViewById(R.id.txtviewWifiState)).setCompoundDrawablesWithIntrinsicBounds(null, null, getContext().getDrawable(drawableID), null);
+    }
+
+    public void setBluetoothStateDrawableTextView() {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        int drawableID = R.drawable.ic_baseline_bluetooth_disabled;
+        if (bluetoothAdapter.isEnabled()) {
+            if (bluetoothAdapter.isDiscovering()) {
+                drawableID = R.drawable.ic_baseline_bluetooth_searching;
+            } else {
+                if (bluetoothAdapter.getBondedDevices().isEmpty()) {
+                    drawableID = R.drawable.ic_baseline_bluetooth;
+                } else {
+                    drawableID = R.drawable.ic_baseline_bluetooth_connected;
+                }
+            }
+        } else {
+            drawableID = R.drawable.ic_baseline_bluetooth_disabled;
+        }
+        ((TextView) findViewById(R.id.txtviewBluetoothState)).setCompoundDrawablesWithIntrinsicBounds(null, null, getContext().getDrawable(drawableID), null);
     }
 
     public boolean isConnected(NetworkInfo.DetailedState detailedState) {

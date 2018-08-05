@@ -78,8 +78,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_wifi_off" />
-                            <entry key="sourceFile" value="D:\lukas\Downloads\baseline-wifi_off-24px.svg" />
+                            <entry key="outputName" value="ic_baseline_bluetooth_searching" />
+                            <entry key="sourceFile" value="D:\lukas\Downloads\baseline-bluetooth_searching-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

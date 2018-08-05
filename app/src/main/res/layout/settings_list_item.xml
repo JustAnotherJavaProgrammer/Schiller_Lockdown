@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/settings_item_app_icon"
         android:paddingLeft="10dp"
+        android:textColor="#000000"
         android:textSize="72px"
-        android:textStyle="bold"
-        android:textColor="#000000" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

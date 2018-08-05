@@ -3,6 +3,9 @@ package lukas_drescher.schillerlockdown;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +34,7 @@ public class customViewGroup extends LinearLayout {
     public void makeHandlerForClock() {
         if (stillNotDestroyed) {
             setBatteryStateTextViewAndCorrespondingDrawable();
+            setWifiStateDrawableTextView();
             new android.os.Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -106,6 +110,44 @@ public class customViewGroup extends LinearLayout {
             }
         }
         return R.drawable.ic_baseline_battery_unknown;
+    }
+
+    public void setWifiStateDrawableTextView() {
+        WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiInfo connectionInfo = wifiManager.getConnectionInfo();
+        int drawableID = R.drawable.ic_baseline_wifi;
+        if (wifiManager.isWifiEnabled()) {
+            if (isConnected(WifiInfo.getDetailedStateOf(wifiManager.getConnectionInfo().getSupplicantState()))) {
+                switch (WifiManager.calculateSignalLevel(connectionInfo.getRssi(), 5)) {
+                    case 0:
+                        drawableID = R.drawable.ic_baseline_signal_wifi_0_bar;
+                        break;
+                    case 1:
+                        drawableID = R.drawable.ic_baseline_signal_wifi_1_bar;
+                        break;
+                    case 2:
+                        drawableID = R.drawable.ic_baseline_signal_wifi_2_bar;
+                        break;
+                    case 3:
+                        drawableID = R.drawable.ic_baseline_signal_wifi_3_bar;
+                        break;
+                    case 4:
+                        drawableID = R.drawable.ic_baseline_signal_wifi_4_bar;
+                        break;
+                    default:
+                        drawableID = R.drawable.ic_baseline_network_wifi;
+                }
+            } else {
+                drawableID = R.drawable.ic_baseline_signal_wifi_off;
+            }
+        } else {
+            drawableID = R.drawable.ic_baseline_wifi_off;
+        }
+        ((TextView) findViewById(R.id.txtviewWifiState)).setCompoundDrawablesWithIntrinsicBounds(null, null, getContext().getDrawable(drawableID), null);
+    }
+
+    public boolean isConnected(NetworkInfo.DetailedState detailedState) {
+        return detailedState.equals(NetworkInfo.DetailedState.CONNECTED) || detailedState.equals(NetworkInfo.DetailedState.AUTHENTICATING) || detailedState.equals(NetworkInfo.DetailedState.CONNECTING) || detailedState.equals(NetworkInfo.DetailedState.OBTAINING_IPADDR);
     }
 
     public String addZeroIfNeeded(int i) {

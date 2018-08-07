@@ -3,6 +3,7 @@ package lukas_drescher.schillerlockdown;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class AboutPage extends AppCompatActivity {
 
@@ -11,6 +12,12 @@ public class AboutPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((TextView) findViewById(R.id.txtviewSchillerQuote)).setText(chooseRandom(R.array.schiller_quotes));
+    }
+
+    private String chooseRandom(int id) {
+        String[] array = getResources().getStringArray(id);
+        return array[(int) (Math.random() * array.length)];
     }
 
     @Override

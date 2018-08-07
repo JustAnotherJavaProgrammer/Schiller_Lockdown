@@ -4,13 +4,16 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,13 +25,41 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 public class customViewGroup extends LinearLayout {
 
     private boolean stillNotDestroyed = true;
+    boolean statusBarAdded = false;
 
     public customViewGroup(Context context) {
         super(context);
-        if (getDefaultSharedPreferences(getContext()).getBoolean("cover_statusbar_completely", false)) {
-            Log.d("LayoutInflater", "starting...");
+        if (getDefaultSharedPreferences(getContext()).getBoolean("cover_statusbar_completely", true)) {
+//          Log.d("LayoutInflater", "starting...");
+            activateCustomStatusBar();
+        }
+    }
+
+    public void activateCustomStatusBar() {
+        if (statusBarAdded) {
+            findViewById(R.id.linearLayoutStatusbar).setVisibility(View.VISIBLE);
+        } else {
             LayoutInflater.from(getContext()).inflate(R.layout.statusbar_pro, this, true).setVisibility(VISIBLE);
+            findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(getStatusBarColor());
             makeHandlerForClock();
+            statusBarAdded = true;
+        }
+    }
+
+    public void disableCustomStatusBar() {
+        if (statusBarAdded) {
+            findViewById(R.id.linearLayoutStatusbar).setVisibility(View.GONE);
+        }
+    }
+
+    public int getStatusBarColor() {
+        switch (getDefaultSharedPreferences(getContext()).getInt("custom_statusbar_color", 0)) {
+            case 0:
+                return ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
+            case 1:
+                return ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
+            default:
+                return Color.BLACK;
         }
     }
 

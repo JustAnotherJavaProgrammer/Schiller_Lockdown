@@ -15,7 +15,6 @@
     <string name="PIN_changed_successfully">PIN erfolgreich geändert</string>
     <string name="PIN_not_identical">Bitte geben Sie in beiden Feldern die gleiche PIN ein.</string>
     <string name="PIN_too_short">Die PIN muss mindestens 4 Zeichen lang sein.</string>
-    <string name="whitelist">Whitelist</string>
     <string name="allowAndForbidApps">Apps erlauben und verbieten:</string>
     <string name="foregroundAppChecker_service">Schiller-Lockdown App-Überprüfung</string>
     <string name="activateBackgroundService">Hintergrundservice aktivieren (Schiller-Lockdown App-Überprüfung)</string>
@@ -30,10 +29,10 @@
     <string name="icon">Appicon</string>
     <string name="status_bar_blocked">Die Statusleiste kann nicht benutzt werden.</string>
     <string name="txtVersion">Version:</string>
-    <string name="version" translatable="false">0.8.7 (next release: RC9) DEV-BUILD</string>
+    <string name="version" translatable="false">0.8.8 (next release: RC9) DEV-BUILD</string>
     <string name="show_message_when_status_bar_blocked">Benachrichtigung anzeigen, wenn die Statusleiste geblockt wurde</string>
     <string name="schiller_lockdown_activated">Schiller-Lockdown ist aktiviert.</string>
-    <string name="cover_statusbar_completely">Statusleiste komplett verdecken</string>
+    <string name="cover_statusbar_completely">Angepasste Statusleiste benutzen</string>
     <string name="DownloadsDeleted">Alle Downloads wurden gelöscht.</string>
     <string name="deleteDownloadsAtMidnightAndOnStartup">Alle Downloads um Mitternacht und nach dem Systemstart automatisch löschen</string>
 
@@ -41,4 +40,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="currentTime">UHRZEIT</string>
     <string name="unknown_percentage">\??%</string>
+    <string name="status_bar_settings">Statusleiste:</string>
+    <string name="choose_status_bar_color">Farbe für die Statusleiste wählen:</string>
+    <string name="color_light_blue">Hellblau</string>
+    <string name="color_dark_blue">Dunkelblau</string>
+    <string name="color_black">Schwarz</string>
 </resources>

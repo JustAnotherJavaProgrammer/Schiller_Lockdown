@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,10 +59,11 @@ public class Homescreen extends AppCompatActivity {
         final Drawable wallpaperDrawable = wallpaperManager.getDrawable();
         ImageView backgroundView = new ImageView(this);
         findViewById(R.id.apps_list).setBackground(wallpaperDrawable);
-        loadWhiteList();
-        loadApps();
-        loadListView();
-        addClickListener();
+        list = findViewById(R.id.apps_list);
+        manager = getPackageManager();
+        layoutInflater = getLayoutInflater();
+        thisOne = this;
+        loadHomescreen();
         try {
             preventStatusBarExpansion(getApplicationContext(), this, false);
         } catch (RuntimeException e) {
@@ -81,13 +83,20 @@ public class Homescreen extends AppCompatActivity {
         }
     }
 
-    public void loadWhiteList() {
-        whitelist = new ArrayList<>(getDefaultSharedPreferences(getApplicationContext()).getStringSet(getString(R.string.whitelist), new HashSet<String>()));
+    public static void loadHomescreen() {
+        loadWhiteList(thisOne.getApplicationContext());
+        loadApps();
+        loadListView();
+        addClickListener();
     }
 
-    ArrayList<String> whitelist;
+    public static void loadWhiteList(Context applicationContext) {
+        whitelist = new ArrayList<>(getDefaultSharedPreferences(applicationContext).getStringSet("Whitelist", new HashSet<String>()));
+    }
 
-    public boolean isAllowed(String packageName) {
+    static ArrayList<String> whitelist;
+
+    public static boolean isAllowed(String packageName) {
         for (int i = 0; i < whitelist.size(); i++) {
             if (whitelist.get(i).equals(packageName))
                 return true;
@@ -167,31 +176,31 @@ public class Homescreen extends AppCompatActivity {
         return true;
     }
 
-    private void addClickListener() {
+    public static void addClickListener() {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> av, View v, int pos,
                                     long id) {
                 kioskMode = false;
                 Intent i = manager.getLaunchIntentForPackage(apps.get(pos).name.toString());
-                startActivity(i);
+                thisOne.startActivity(i);
             }
         });
     }
 
-    GridView list;
+    static GridView list;
+    static LayoutInflater layoutInflater;
+    static Context thisOne;
 
-    private void loadListView() {
-        list = findViewById(R.id.apps_list);
-
-        ArrayAdapter<AppDetail> adapter = new ArrayAdapter<AppDetail>(this,
+    public static void loadListView() {
+        ArrayAdapter<AppDetail> adapter = new ArrayAdapter<AppDetail>(thisOne,
                 R.layout.support_simple_spinner_dropdown_item,
                 apps) {
             @Override
             @NonNull
             public View getView(int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
-                    convertView = getLayoutInflater().inflate(R.layout.list_item, null);
+                    convertView = layoutInflater.inflate(R.layout.list_item, null);
                 }
 
                 ImageView appIcon = convertView.findViewById(R.id.item_app_icon);
@@ -212,11 +221,10 @@ public class Homescreen extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
-    List<AppDetail> apps;
-    PackageManager manager;
+    static List<AppDetail> apps;
+    static PackageManager manager;
 
-    public void loadApps() {
-        manager = getPackageManager();
+    public static void loadApps() {
         apps = new ArrayList<>();
 
         Intent i = new Intent(Intent.ACTION_MAIN, null);
@@ -279,7 +287,7 @@ public class Homescreen extends AppCompatActivity {
         // do nothing
     }
 
-    boolean kioskMode = true;
+    static boolean kioskMode = true;
 
     @Override
     protected void onDestroy() {

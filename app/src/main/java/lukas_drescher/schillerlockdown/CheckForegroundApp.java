@@ -21,7 +21,7 @@ public class CheckForegroundApp extends AccessibilityService {
     }
 
     public void loadWhiteList() {
-        whitelist = new ArrayList<>(getDefaultSharedPreferences(getApplicationContext()).getStringSet(getString(R.string.whitelist), new HashSet<String>()));
+        whitelist = new ArrayList<>(getDefaultSharedPreferences(getApplicationContext()).getStringSet("Whitelist", new HashSet<String>()));
     }
 
     AccessibilityEvent foregroundActivity;

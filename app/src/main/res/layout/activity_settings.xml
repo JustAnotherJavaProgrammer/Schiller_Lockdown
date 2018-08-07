@@ -7,141 +7,218 @@
     android:layout_height="match_parent"
     tools:context=".Settings">
 
-    <Button
-        android:id="@+id/changeLauncher"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="changeLauncher"
-        android:text="@string/changeLauncher"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/changePIN"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="155dp" />
 
-    <Button
-        android:id="@+id/systemSettings"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="openSystemSettings"
-        android:text="@string/systemSettings"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/changePIN"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="188dp" />
-
-    <Button
-        android:id="@+id/changePIN"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="changePIN"
-        android:text="@string/changePIN"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/systemSettings"
-        app:layout_constraintEnd_toStartOf="@+id/systemSettings"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changeLauncher" />
-
-    <ListView
-        android:id="@+id/appList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:visibility="visible"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allowAndForbidApps" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/allowAndForbidApps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/allowAndForbidApps"
-        android:textColor="@color/colorPrimary"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/appList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchDeleteDownloads" />
+        <LinearLayout
+            android:id="@+id/scrollViewLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:attr/listDivider"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="activateBackgroundService"
-        android:text="@string/activateBackgroundService"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/changeLauncher"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/changeLauncher"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="fill_vertical|start"
+                android:includeFontPadding="false"
+                android:onClick="changeLauncher"
+                android:text="@string/changeLauncher"
+                android:textAllCaps="false"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/activateBackgroundService"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/showStatusBarBlockedMessage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:checked="false"
-        android:switchPadding="8dp"
-        android:switchTextAppearance="@style/TextAppearance.AppCompat"
-        android:text="@string/show_message_when_status_bar_blocked"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/systemSettings" />
+            <Button
+                android:id="@+id/activateBackgroundService"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="fill_vertical|start"
+                android:includeFontPadding="false"
+                android:onClick="activateBackgroundService"
+                android:text="@string/activateBackgroundService"
+                android:textAllCaps="false"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/systemSettings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/changeLauncher" />
 
-    <Switch
-        android:id="@+id/cover_statusbar_completely"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:checked="false"
-        android:switchPadding="8dp"
-        android:text="@string/cover_statusbar_completely"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showStatusBarBlockedMessage" />
+            <Button
+                android:id="@+id/systemSettings"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="fill_vertical|start"
+                android:includeFontPadding="false"
+                android:onClick="openSystemSettings"
+                android:text="@string/systemSettings"
+                android:textAllCaps="false"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/changePIN"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activateBackgroundService" />
 
-    <Switch
-        android:id="@+id/switchDeleteDownloads"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="@string/deleteDownloadsAtMidnightAndOnStartup"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cover_statusbar_completely" />
+            <Button
+                android:id="@+id/changePIN"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="fill_vertical|start"
+                android:includeFontPadding="false"
+                android:onClick="changePIN"
+                android:text="@string/changePIN"
+                android:textAllCaps="false"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/switchDeleteDownloads"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/systemSettings" />
+
+            <Switch
+                android:id="@+id/switchDeleteDownloads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="sans-serif"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="16dp"
+                android:text="@string/deleteDownloadsAtMidnightAndOnStartup"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/statusBarSettings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/changePIN" />
+
+            <TextView
+                android:id="@+id/statusBarSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="8dp"
+                android:text="@string/status_bar_settings"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:typeface="sans"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/cover_statusbar_completely"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switchDeleteDownloads" />
+
+            <Switch
+                android:id="@+id/cover_statusbar_completely"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="16dp"
+                android:switchPadding="8dp"
+                android:text="@string/cover_statusbar_completely"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/showStatusBarBlockedMessage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statusBarSettings" />
+
+            <TextView
+                android:id="@+id/chooseStatusBarColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="8dp"
+                android:text="@string/choose_status_bar_color"
+                android:textColor="@color/colorPrimary" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupStatusBarColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkedButton="@+id/colorLightBlue"
+                android:paddingHorizontal="12dp">
+
+                <RadioButton
+                    android:id="@+id/colorLightBlue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:buttonTint="@android:color/white"
+                    android:text="@string/color_light_blue"
+                    android:textColor="@android:color/white" />
+
+                <RadioButton
+                    android:id="@+id/colorDarkBlue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:buttonTint="@android:color/white"
+                    android:checked="false"
+                    android:text="@string/color_dark_blue"
+                    android:textColor="@android:color/white" />
+
+                <RadioButton
+                    android:id="@+id/colorBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/black"
+                    android:buttonTint="@android:color/white"
+                    android:text="@string/color_black"
+                    android:textColor="@android:color/white" />
+            </RadioGroup>
+
+            <Switch
+                android:id="@+id/showStatusBarBlockedMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="16dp"
+                android:switchPadding="8dp"
+                android:switchTextAppearance="@style/TextAppearance.AppCompat"
+                android:text="@string/show_message_when_status_bar_blocked"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/allowAndForbidApps"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cover_statusbar_completely" />
+
+            <TextView
+                android:id="@+id/allowAndForbidApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="8dp"
+                android:text="@string/allowAndForbidApps"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:typeface="sans"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/appList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/showStatusBarBlockedMessage" />
+        </LinearLayout>
+    </ScrollView>
+
 
 </android.support.constraint.ConstraintLayout>

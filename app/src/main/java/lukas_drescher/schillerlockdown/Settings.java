@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -33,19 +34,29 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setSwitches();
         loadWhiteList();
         loadApps();
         loadListView();
-        addClickListener();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void loadWhiteList() {
-        whitelist = new ArrayList<>(getDefaultSharedPreferences(getApplicationContext()).getStringSet(getString(R.string.whitelist), new HashSet<String>()));
+        whitelist = new ArrayList<>(getDefaultSharedPreferences(getApplicationContext()).getStringSet("Whitelist", new HashSet<String>()));
     }
 
     public void saveWhiteList() {
-        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putStringSet(getString(R.string.whitelist), new HashSet<>(whitelist)).apply();
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putStringSet("Whitelist", new HashSet<>(whitelist)).apply();
         String whitelist = "";
         for (int i = 0; i < this.whitelist.size(); i++) {
             if (!whitelist.equals(""))
@@ -79,27 +90,26 @@ public class Settings extends AppCompatActivity {
         return false;
     }
 
-    private void addClickListener() {
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void addClickListener(View view, final int pos) {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> av, View v, int pos,
-                                    long id) {
+            public void onClick(View view) {
                 if (apps.get(pos).isAllowed) {
                     forbidApp(apps.get(pos).name.toString());
-                    v.setBackgroundColor(Color.TRANSPARENT);
+                    view.setBackgroundColor(Color.TRANSPARENT);
                 } else {
                     allowApp(apps.get(pos).name.toString());
-                    v.setBackgroundColor(Color.GREEN);
+                    view.setBackgroundColor(Color.GREEN);
                 }
                 apps.get(pos).isAllowed = !apps.get(pos).isAllowed;
+                Homescreen.loadApps();
+                Homescreen.loadHomescreen();
             }
         });
     }
 
-    ListView list;
-
     private void loadListView() {
-        list = findViewById(R.id.appList);
+        final LinearLayout listViewReplacement = findViewById(R.id.scrollViewLinearLayout);
 
         ArrayAdapter<AppDetailPlus> adapter = new ArrayAdapter<AppDetailPlus>(this,
                 R.layout.support_simple_spinner_dropdown_item,
@@ -124,11 +134,14 @@ public class Settings extends AppCompatActivity {
                 TextView appLabel = convertView.findViewById(R.id.settings_item_app_label);
                 appLabel.setText(apps.get(position).label + " (" + apps.get(position).name + ")");
 
+                addClickListener(convertView, position);
                 return convertView;
             }
         };
-
-        list.setAdapter(adapter);
+        int count = adapter.getCount();
+        for (int position = 0; position < count; position++) {
+            listViewReplacement.addView(adapter.getView(position, null, listViewReplacement));
+        }
     }
 
     List<AppDetailPlus> apps;
@@ -174,12 +187,62 @@ public class Settings extends AppCompatActivity {
                 getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("show_Statusbar_blocked_message", isChecked).apply();
             }
         });
+        final RadioGroup statusBarColor = findViewById(R.id.radioGroupStatusBarColor);
+        final TextView chooseStatusBarColor = findViewById(R.id.chooseStatusBarColor);
         Switch coverStatusBarCompletely = findViewById(R.id.cover_statusbar_completely);
-        coverStatusBarCompletely.setChecked(getDefaultSharedPreferences(getApplicationContext()).getBoolean("cover_statusbar_completely", false));
+        coverStatusBarCompletely.setChecked(getDefaultSharedPreferences(getApplicationContext()).getBoolean("cover_statusbar_completely", true));
         coverStatusBarCompletely.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("cover_statusbar_completely", isChecked).apply();
+                if (isChecked) {
+                    statusBarColor.setVisibility(View.VISIBLE);
+                    chooseStatusBarColor.setVisibility(View.VISIBLE);
+                    if (Homescreen.viewGroup != null) {
+                        Homescreen.viewGroup.activateCustomStatusBar();
+                    }
+                } else {
+                    statusBarColor.setVisibility(View.GONE);
+                    chooseStatusBarColor.setVisibility(View.GONE);
+                    if (Homescreen.viewGroup != null) {
+                        Homescreen.viewGroup.disableCustomStatusBar();
+                    }
+                }
+            }
+        });
+        if (coverStatusBarCompletely.isChecked()) {
+            statusBarColor.setVisibility(View.VISIBLE);
+            chooseStatusBarColor.setVisibility(View.VISIBLE);
+        } else {
+            statusBarColor.setVisibility(View.GONE);
+            chooseStatusBarColor.setVisibility(View.GONE);
+        }
+        switch (getDefaultSharedPreferences(getApplicationContext()).getInt("custom_statusbar_color", 0)) {
+            case 0:
+                statusBarColor.check(R.id.colorLightBlue);
+                break;
+            case 1:
+                statusBarColor.check(R.id.colorDarkBlue);
+                break;
+            default:
+                statusBarColor.check(R.id.colorBlack);
+        }
+        statusBarColor.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.colorDarkBlue:
+                        getDefaultSharedPreferences(getApplicationContext()).edit().putInt("custom_statusbar_color", 1).apply();
+                        break;
+                    case R.id.colorBlack:
+                        getDefaultSharedPreferences(getApplicationContext()).edit().putInt("custom_statusbar_color", 2).apply();
+                        break;
+                    default:
+                        getDefaultSharedPreferences(getApplicationContext()).edit().putInt("custom_statusbar_color", 0).apply();
+                }
+                if (Homescreen.viewGroup != null) {
+                    Homescreen.viewGroup.findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(Homescreen.viewGroup.getStatusBarColor());
+                }
             }
         });
         Switch switchDeleteDownloads = findViewById(R.id.switchDeleteDownloads);

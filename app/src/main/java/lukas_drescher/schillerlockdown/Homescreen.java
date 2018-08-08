@@ -57,8 +57,7 @@ public class Homescreen extends AppCompatActivity {
         }
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
         final Drawable wallpaperDrawable = wallpaperManager.getDrawable();
-        ImageView backgroundView = new ImageView(this);
-        findViewById(R.id.apps_list).setBackground(wallpaperDrawable);
+        ((ImageView) findViewById(R.id.homescreenWallpaperBackground)).setImageDrawable(wallpaperDrawable);
         list = findViewById(R.id.apps_list);
         manager = getPackageManager();
         layoutInflater = getLayoutInflater();

@@ -2,7 +2,7 @@
 <resources>
     <string name="ad_pro">Entferne diese Nachricht, unterstütze den Entwickler und erhalte Zugriff auf alle Apps, die Statusleiste sowie viele neue Funktionen!\nKaufe jetzt die PRO-Version!</string>
     <string name="open_app">Entferne diese Meldung, unterstütze den Entwickler und erhalte Zugriff auf alle Apps, die Statusleiste sowie viele neue Funktionen!\n</string>
-    <string name="title">Schiller-Lockdown Basic</string>
+    <string name="title">Schiller-Lockdown BASIC</string>
     <string name="question_wanna_buy_pro">Möchtest du jetzt die PRO-Version kaufen?</string>
     <string name="statusbar_pro">Bitte kaufe die PRO-Version.</string>
     <string name="statusbar_only_pros">Sie Statusleiste ist nur in der PRO-Version verfügbar.\n</string>

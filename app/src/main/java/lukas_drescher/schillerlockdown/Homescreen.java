@@ -84,6 +84,7 @@ public class Homescreen extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), ChangePIN.class));
         }
         if (isFirstOfApril) {
+            setTitle(R.string.title);
             findViewById(R.id.ad_homescreen).setVisibility(View.VISIBLE);
         }
     }

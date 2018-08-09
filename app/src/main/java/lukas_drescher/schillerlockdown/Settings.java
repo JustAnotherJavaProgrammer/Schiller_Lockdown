@@ -111,7 +111,7 @@ public class Settings extends AppCompatActivity {
     private void loadListView() {
         final LinearLayout listViewReplacement = findViewById(R.id.scrollViewLinearLayout);
 
-        ArrayAdapter<AppDetailPlus> adapter = new ArrayAdapter<AppDetailPlus>(this,
+        ArrayAdapter<AppDetail> adapter = new ArrayAdapter<AppDetail>(this,
                 R.layout.support_simple_spinner_dropdown_item,
                 apps) {
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -144,7 +144,7 @@ public class Settings extends AppCompatActivity {
         }
     }
 
-    List<AppDetailPlus> apps;
+    List<AppDetail> apps;
     PackageManager manager;
 
     public void loadApps() {
@@ -156,7 +156,7 @@ public class Settings extends AppCompatActivity {
 
         List<ResolveInfo> availableActivities = manager.queryIntentActivities(i, 0);
         for (ResolveInfo ri : availableActivities) {
-            AppDetailPlus app = new AppDetailPlus();
+            AppDetail app = new AppDetail();
             app.label = ri.loadLabel(manager);
             app.name = ri.activityInfo.packageName;
             if (app.label == null) {
@@ -169,7 +169,7 @@ public class Settings extends AppCompatActivity {
         sortApps(apps);
     }
 
-    public static void sortApps(List<AppDetailPlus> apps) {
+    public static void sortApps(List<AppDetail> apps) {
         Collections.sort(apps, new Comparator<AppDetail>() {
             @Override
             public int compare(AppDetail a1, AppDetail a2) {

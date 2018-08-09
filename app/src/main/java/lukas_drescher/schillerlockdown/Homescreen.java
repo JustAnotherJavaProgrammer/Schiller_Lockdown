@@ -40,6 +40,8 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class Homescreen extends AppCompatActivity {
 
+    private static boolean isFirstOfApril = AprilFool.isFirstOfApril();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if ((getIntent().getBooleanExtra("Startup", false) || SystemClock.elapsedRealtime() < 5 * 1000 * 60) && getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", false)) {
@@ -63,22 +65,26 @@ public class Homescreen extends AppCompatActivity {
         layoutInflater = getLayoutInflater();
         thisOne = this;
         loadHomescreen();
+        findViewById(R.id.ad_homescreen).setOnClickListener(AprilFool.adOnClick());
         try {
             preventStatusBarExpansion(getApplicationContext(), this, false);
         } catch (RuntimeException e) {
             Log.e("statusBarBlocker", "first error");
+            e.printStackTrace();
+            try {
+                preventStatusBarExpansion(getApplicationContext(), this, true);
+            } catch (RuntimeException e2) {
+                Log.e("statusBarBlocker", "second error");
                 e.printStackTrace();
-                try {
-                    preventStatusBarExpansion(getApplicationContext(), this, true);
-                } catch (RuntimeException e2) {
-                    Log.e("statusBarBlocker", "second error");
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), R.string.status_bar_unblockable, Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(getApplicationContext(), R.string.status_bar_unblockable, Toast.LENGTH_LONG).show();
             }
+        }
         if (getDefaultSharedPreferences(getApplicationContext()).getInt(getString(R.string.PIN), -1) == -1) {
             kioskMode = false;
             startActivity(new Intent(getApplicationContext(), ChangePIN.class));
+        }
+        if (isFirstOfApril) {
+            findViewById(R.id.ad_homescreen).setVisibility(View.VISIBLE);
         }
     }
 
@@ -180,9 +186,17 @@ public class Homescreen extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> av, View v, int pos,
                                     long id) {
-                kioskMode = false;
-                Intent i = manager.getLaunchIntentForPackage(apps.get(pos).name.toString());
-                thisOne.startActivity(i);
+                if (apps.get(pos).isAllowed) {
+                    kioskMode = false;
+                    Intent i = manager.getLaunchIntentForPackage(apps.get(pos).name.toString());
+                    if (isFirstOfApril) {
+                        AprilFool.showAllowedAppDialogApril(v, i);
+                    } else {
+                        thisOne.startActivity(i);
+                    }
+                } else if (isFirstOfApril) {
+                    AprilFool.showForbiddenAppDialogApril(v);
+                }
             }
         });
     }
@@ -238,7 +252,8 @@ public class Homescreen extends AppCompatActivity {
                 app.label = app.name;
             }
             app.icon = ri.activityInfo.loadIcon(manager);
-            if (isAllowed(app.name.toString()))
+            app.isAllowed = isAllowed(app.name.toString());
+            if (app.isAllowed || isFirstOfApril)
                 apps.add(app);
         }
         sortApps(apps);
@@ -334,7 +349,7 @@ public class Homescreen extends AppCompatActivity {
 
         localLayoutParams.format = PixelFormat.TRANSPARENT;
 
-        customViewGroup view = new customViewGroup(context);
+        customViewGroup view = new customViewGroup(context, activity);
         assert manager != null;
         manager.addView(view, localLayoutParams);
         viewGroup = view;

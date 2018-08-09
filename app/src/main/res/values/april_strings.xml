@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ad_pro">Entferne diese Nachricht, unterstütze den Entwickler und erhalte Zugriff auf alle Apps, die Statusleiste sowie viele neue Funktionen!\nKaufe jetzt die PRO-Version!</string>
+    <string name="open_app">Entferne diese Meldung, unterstütze den Entwickler und erhalte Zugriff auf alle Apps, die Statusleiste sowie viele neue Funktionen!\n</string>
+    <string name="title">Schiller-Lockdown Basic</string>
+    <string name="question_wanna_buy_pro">Möchtest du jetzt die PRO-Version kaufen?</string>
+    <string name="statusbar_pro">Bitte kaufe die PRO-Version.</string>
+    <string name="statusbar_only_pros">Sie Statusleiste ist nur in der PRO-Version verfügbar.\n</string>
+    <string name="app_only_pro">Diese App ist nur in der PRO-Version verfügbar.\n</string>
+    <string name="april_fool">April, April!</string>
+    <string name="yes_i_want">Ja, ich will!</string>
+    <string name="no_thanks">Nein, danke.</string>
+</resources>

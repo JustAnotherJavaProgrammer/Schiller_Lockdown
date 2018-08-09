@@ -3,6 +3,7 @@ package lukas_drescher.schillerlockdown;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class AboutPage extends AppCompatActivity {
@@ -13,6 +14,10 @@ public class AboutPage extends AppCompatActivity {
         setContentView(R.layout.activity_about_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((TextView) findViewById(R.id.txtviewSchillerQuote)).setText(chooseRandom(R.array.schiller_quotes));
+        if (AprilFool.isFirstOfApril()) {
+            findViewById(R.id.ad_about_page).setVisibility(View.VISIBLE);
+            findViewById(R.id.ad_about_page).setOnClickListener(AprilFool.adOnClick());
+        }
     }
 
     private String chooseRandom(int id) {

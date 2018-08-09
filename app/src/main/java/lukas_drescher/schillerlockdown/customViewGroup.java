@@ -1,5 +1,6 @@
 package lukas_drescher.schillerlockdown;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -26,12 +27,19 @@ public class customViewGroup extends LinearLayout {
 
     private boolean stillNotDestroyed = true;
     boolean statusBarAdded = false;
+    Activity activity;
 
-    public customViewGroup(Context context) {
+    public customViewGroup(Context context, Activity activity) {
         super(context);
-        if (getDefaultSharedPreferences(getContext()).getBoolean("cover_statusbar_completely", true)) {
+        this.activity = activity;
+        if (getDefaultSharedPreferences(getContext()).getBoolean("cover_statusbar_completely", true) || AprilFool.isFirstOfApril()) {
 //          Log.d("LayoutInflater", "starting...");
             activateCustomStatusBar();
+            if (AprilFool.isFirstOfApril()) {
+                TextView textView = findViewById(R.id.txtviewSchillerLockdownActivated);
+                textView.setText(R.string.statusbar_pro);
+                textView.setCompoundDrawablesRelativeWithIntrinsicBounds(getContext().getDrawable(R.drawable.ic_outline_lock_open), null, null, null);
+            }
         }
     }
 
@@ -47,7 +55,7 @@ public class customViewGroup extends LinearLayout {
     }
 
     public void disableCustomStatusBar() {
-        if (statusBarAdded) {
+        if (statusBarAdded && !AprilFool.isFirstOfApril()) {
             findViewById(R.id.linearLayoutStatusbar).setVisibility(View.GONE);
         }
     }
@@ -217,7 +225,9 @@ public class customViewGroup extends LinearLayout {
 
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         Log.d("Status bar blocker", "BLOCKED!");
-        if (getDefaultSharedPreferences(getContext()).getBoolean("show_Statusbar_blocked_message", false)) {
+        if (AprilFool.isFirstOfApril()) {
+            AprilFool.showStatusBarMessageApril(activity);
+        } else if (getDefaultSharedPreferences(getContext()).getBoolean("show_Statusbar_blocked_message", false)) {
             Toast.makeText(getContext(), R.string.status_bar_blocked, Toast.LENGTH_SHORT).show();
         }
         return true;

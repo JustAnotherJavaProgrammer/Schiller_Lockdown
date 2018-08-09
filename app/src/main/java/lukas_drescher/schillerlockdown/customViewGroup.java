@@ -233,10 +233,8 @@ public class customViewGroup extends LinearLayout {
         return true;
     }
 
-    @Override
-    public void finalize() throws Throwable {
+    public void onFinalize() {
         stillNotDestroyed = false;
-        super.finalize();
         Log.d("customViewGroup", "finalized");
     }
     // @Override

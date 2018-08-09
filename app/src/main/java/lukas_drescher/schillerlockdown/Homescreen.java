@@ -44,6 +44,7 @@ public class Homescreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         if ((getIntent().getBooleanExtra("Startup", false) || SystemClock.elapsedRealtime() < 5 * 1000 * 60) && getDefaultSharedPreferences(getApplicationContext()).getBoolean("DeleteDownloads", false)) {
             Log.d("Homescreen, DDT", "Starting deleting downloads on startup...");
             DownloadDeletionTool.deleteDownloads();
@@ -306,12 +307,16 @@ public class Homescreen extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        list = null;
+        thisOne = null;
+        viewGroup = null;
+
         if (kioskMode) {
             startActivity(this.getIntent());
         }
         super.onDestroy();
         try {
-            viewGroup.finalize();
+            viewGroup.onFinalize();
         } catch (Throwable e) {
             e.printStackTrace();
         }

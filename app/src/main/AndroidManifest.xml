@@ -26,8 +26,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:stateNotNeeded="true"
         android:supportsRtl="true"
+        android:fullBackupContent="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Homescreen">
+        <activity
+            android:name=".Homescreen"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

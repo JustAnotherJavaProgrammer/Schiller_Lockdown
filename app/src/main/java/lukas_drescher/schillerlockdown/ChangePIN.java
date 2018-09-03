@@ -55,11 +55,15 @@ public class ChangePIN extends AppCompatActivity {
         if (newPIN.getText().length() > 3) {
             if (newPIN.getText().toString().equals(PIN2.getText().toString())) {
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-                editor.putInt(getString(R.string.PIN), Integer.valueOf(newPIN.getText().toString()));
-                editor.apply();
-                startActivity(new Intent(getApplicationContext(), Settings.class));
-                finish();
-                Toast.makeText(getApplicationContext(), R.string.PIN_changed_successfully, Toast.LENGTH_SHORT).show();
+                try {
+                    editor.putInt(getString(R.string.PIN), Integer.valueOf(newPIN.getText().toString()));
+                    editor.apply();
+                    startActivity(new Intent(getApplicationContext(), Settings.class));
+                    finish();
+                    Toast.makeText(getApplicationContext(), R.string.PIN_changed_successfully, Toast.LENGTH_SHORT).show();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), R.string.pin_too_large, Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(getApplicationContext(), R.string.PIN_not_identical, Toast.LENGTH_SHORT).show();
             }

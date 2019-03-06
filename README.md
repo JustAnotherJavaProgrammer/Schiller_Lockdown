@@ -8,5 +8,6 @@ Es soll einige Lücken schließen, auf die wir in MobiLock (gratis-Version) gest
 - Wie MobiLock durch eine PIN geschützt
 - Blockt sofort jede unerlaubte (System-)App
 - Erlaubt den Recent Apps Screen
+- Kann die Benachrichtigungsleiste durch eine (benachrichtigungsfreie) Leiste ersetzen
 - Ist (wie MobiLock) ein Launcher
 - Komplett selbst geschrieben und daher schneller zu fixen

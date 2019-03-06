@@ -1,6 +1,8 @@
 package lukas_drescher.schillerlockdown;
 
 import android.accessibilityservice.AccessibilityService;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -24,7 +26,7 @@ public class CheckForegroundApp extends AccessibilityService {
         whitelist = new ArrayList<>(getDefaultSharedPreferences(getApplicationContext()).getStringSet("Whitelist", new HashSet<String>()));
     }
 
-    //AccessibilityEvent foregroundActivity;
+//    AccessibilityEvent foregroundActivity;
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
@@ -36,22 +38,23 @@ public class CheckForegroundApp extends AccessibilityService {
         }
         loadWhiteList();
         //if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-        //if (foregroundActivity == null || !event.getPackageName().equals(foregroundActivity.getPackageName())) {
-            boolean isRecentAppsScreen = event.getClassName().equals("com.android.systemui.recents.RecentsActivity");
-            boolean isAllowed = isAllowed(event.getPackageName().toString());
-            if (!(isRecentAppsScreen || isAllowed)) {
-                // Close every kind of system dialog
-                Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-                sendBroadcast(closeDialog);
-                Log.w("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
-                Intent i = new Intent(getApplicationContext(), Homescreen.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("EXIT", true);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-            }
-            //foregroundActivity = event;
-        //}
+//        if (foregroundActivity == null || !event.getPackageName().equals(foregroundActivity.getPackageName())) {
+        boolean isRecentAppsScreen = event.getClassName().equals("com.android.systemui.recents.RecentsActivity") || event.getClassName().equals("com.android.systemui.recents.SeparatedRecentsActivity");
+        boolean isAllowed = isAllowed(event.getPackageName().toString());
+        if (!(isRecentAppsScreen || isAllowed)) {
+            // Close every kind of system dialog
+            Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+            sendBroadcast(closeDialog);
+            Log.w("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
+            Intent i = new Intent(getApplicationContext(), Homescreen.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("EXIT", true);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+            ((ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE)).killBackgroundProcesses(event.getPackageName().toString());
+        }
+//            foregroundActivity = event;
+//        }
         //}
     }
 

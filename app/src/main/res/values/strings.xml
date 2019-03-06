@@ -54,4 +54,7 @@
         <item>Und es wallet und siedet und brauset und zischt,\nWie wenn Wasser mit Feuer sich mengt,\nBis zum Himmel spritzet der dampfende Gischt,\nUnd Well auf Well sich ohn Ende drängt,\nUnd wie mit des fernen Donners Getose\nEntstürzt es brüllend dem finstern Schoße.</item>
     </string-array>
     <string name="pin_too_large">Die PIN ist zu groß.\\nBitte wählen Sie eine kleinere PIN.</string>
+    <string name="app_locked">Diese App ist gesperrt</string>
+    <string name="enter_code_to_unlock">Bitte Code eingeben, um den Schutz für fünf Minuten zu deaktivieren:</string>
+    <string name="empty" />
 </resources>

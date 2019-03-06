@@ -78,8 +78,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_lock" />
-                            <entry key="sourceFile" value="D:\lukas\Downloads\baseline-lock-24px.svg" />
+                            <entry key="outputName" value="ic_outline_backspace" />
+                            <entry key="sourceFile" value="D:\lukas\Downloads\outline-backspace-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

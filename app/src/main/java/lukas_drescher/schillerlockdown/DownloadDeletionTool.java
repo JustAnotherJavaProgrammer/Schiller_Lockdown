@@ -24,10 +24,14 @@ public class DownloadDeletionTool extends Service {
 
     public static void deleteDownloads() {
         File[] downloads = new File(Environment.getExternalStorageDirectory().getPath() + "/Download").listFiles();
-        for (File download : downloads) {
-            download.delete();
+        if (downloads != null) {
+            for (File download : downloads) {
+                download.delete();
+            }
+            Log.d("DownloadDeletionTool", "Downloads deleted");
+        } else {
+            Log.d("DownloadDeletionTool", "No downloads found!");
         }
-        Log.d("DownloadDeletionTool", "Downloads deleted");
     }
 
     public static void setAlarm(Context context) {

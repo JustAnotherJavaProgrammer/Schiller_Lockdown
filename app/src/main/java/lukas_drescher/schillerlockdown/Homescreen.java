@@ -332,7 +332,7 @@ public class Homescreen extends AppCompatActivity {
         if (overlay) {
             localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
         } else {
-            localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            localLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         }
         localLayoutParams.gravity = Gravity.TOP;
         localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |

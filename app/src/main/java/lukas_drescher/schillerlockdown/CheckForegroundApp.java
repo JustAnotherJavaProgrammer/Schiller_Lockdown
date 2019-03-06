@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
 import java.util.ArrayList;
@@ -46,6 +47,9 @@ public class CheckForegroundApp extends AccessibilityService {
             Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
             sendBroadcast(closeDialog);
             Log.w("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
+            WindowManager wm = (WindowManager) getApplicationContext().getSystemService(WINDOW_SERVICE);
+            wm.addView();
+
             Intent i = new Intent(getApplicationContext(), Homescreen.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.putExtra("EXIT", true);

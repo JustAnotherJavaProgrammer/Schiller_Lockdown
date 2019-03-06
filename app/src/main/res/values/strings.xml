@@ -29,7 +29,7 @@
     <string name="icon">Appicon</string>
     <string name="status_bar_blocked">Die Statusleiste kann nicht benutzt werden.</string>
     <string name="txtVersion">Version:</string>
-    <string name="version" translatable="false">0.9.0 (RC9)</string>
+    <string name="version" translatable="false">0.9.1</string>
     <string name="show_message_when_status_bar_blocked">Benachrichtigung anzeigen, wenn die Statusleiste geblockt wurde</string>
     <string name="schiller_lockdown_activated">Schiller-Lockdown ist aktiviert.</string>
     <string name="cover_statusbar_completely">Angepasste Statusleiste benutzen</string>
@@ -57,4 +57,7 @@
     <string name="app_locked">Diese App ist gesperrt</string>
     <string name="enter_code_to_unlock">Bitte Code eingeben, um den Schutz für fünf Minuten zu deaktivieren:</string>
     <string name="empty" />
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

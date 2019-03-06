@@ -24,7 +24,7 @@ public class CheckForegroundApp extends AccessibilityService {
         whitelist = new ArrayList<>(getDefaultSharedPreferences(getApplicationContext()).getStringSet("Whitelist", new HashSet<String>()));
     }
 
-    AccessibilityEvent foregroundActivity;
+    //AccessibilityEvent foregroundActivity;
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
@@ -36,7 +36,7 @@ public class CheckForegroundApp extends AccessibilityService {
         }
         loadWhiteList();
         //if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-        if (foregroundActivity == null || !event.getPackageName().equals(foregroundActivity.getPackageName())) {
+        //if (foregroundActivity == null || !event.getPackageName().equals(foregroundActivity.getPackageName())) {
             boolean isRecentAppsScreen = event.getClassName().equals("com.android.systemui.recents.RecentsActivity");
             boolean isAllowed = isAllowed(event.getPackageName().toString());
             if (!(isRecentAppsScreen || isAllowed)) {
@@ -50,8 +50,8 @@ public class CheckForegroundApp extends AccessibilityService {
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
-            foregroundActivity = event;
-        }
+            //foregroundActivity = event;
+        //}
         //}
     }
 

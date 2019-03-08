@@ -16,6 +16,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 public class CheckForegroundApp extends AccessibilityService {
 
     ArrayList<String> whitelist;
+    AppLockscreen lockscreen;
 
     @Override
     protected void onServiceConnected() {
@@ -43,19 +44,27 @@ public class CheckForegroundApp extends AccessibilityService {
         boolean isRecentAppsScreen = event.getClassName().equals("com.android.systemui.recents.RecentsActivity") || event.getClassName().equals("com.android.systemui.recents.SeparatedRecentsActivity");
         boolean isAllowed = isAllowed(event.getPackageName().toString());
         if (!(isRecentAppsScreen || isAllowed)) {
-            // Close every kind of system dialog
             Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
             sendBroadcast(closeDialog);
             Log.w("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
-            WindowManager wm = (WindowManager) getApplicationContext().getSystemService(WINDOW_SERVICE);
-            wm.addView();
-
-            Intent i = new Intent(getApplicationContext(), Homescreen.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.putExtra("EXIT", true);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
-            ((ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE)).killBackgroundProcesses(event.getPackageName().toString());
+            if (event.getPackageName().equals("com.android.systemui") && event.getClassName().equals("android.widget.FrameLayout")) {
+                legacyLockscreen(event);
+            } else if (lockscreen == null) {
+                // Close every kind of system dialog
+                try {
+                    startLockscreen(event, true);
+                } catch (RuntimeException e) {
+                    try {
+                        startLockscreen(event, false);
+                    } catch (RuntimeException e2) {
+                        legacyLockscreen(event);
+                    }
+                }
+            } else {
+                lockscreen.show();
+            }
+        } else if (lockscreen != null) {
+            lockscreen.hide();
         }
 //            foregroundActivity = event;
 //        }
@@ -64,11 +73,28 @@ public class CheckForegroundApp extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
+    }
 
+    private void startLockscreen(AccessibilityEvent event, boolean systemOverlay) {
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(WINDOW_SERVICE);
+        WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
+        localLayoutParams.type = systemOverlay ? WindowManager.LayoutParams.TYPE_SYSTEM_ERROR : WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+        lockscreen = new AppLockscreen(getApplicationContext(), wm, event);
+        wm.addView(lockscreen, localLayoutParams);
+    }
+
+    private void legacyLockscreen(AccessibilityEvent event) {
+        Intent i = new Intent(getApplicationContext(), Homescreen.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("EXIT", true);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        ((ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE)).killBackgroundProcesses(event.getPackageName().toString());
     }
 
     public boolean isAllowed(String packageName) {
-        if ((packageName.contains("android") && packageName.contains("settings")) || packageName.equals(Homescreen.class.getPackage().getName()))
+        if (System.currentTimeMillis() < getDefaultSharedPreferences(getApplicationContext()).getLong("disabled until", 0) || (packageName.contains("android") && packageName.contains("settings")) || packageName.equals(Homescreen.class.getPackage().getName()))
             return true;
         for (int i = 0; i < whitelist.size(); i++) {
             if (whitelist.get(i).equals(packageName))

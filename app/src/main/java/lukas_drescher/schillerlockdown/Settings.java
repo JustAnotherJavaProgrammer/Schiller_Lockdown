@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Util.getStatusBarColor(getApplicationContext(), getResources())));
         setSwitches();
         loadWhiteList();
         loadApps();
@@ -240,9 +242,14 @@ public class Settings extends AppCompatActivity {
                     default:
                         getDefaultSharedPreferences(getApplicationContext()).edit().putInt("custom_statusbar_color", 0).apply();
                 }
+                int bgColor = Util.getStatusBarColor(getApplicationContext(), getResources());
                 if (Homescreen.viewGroup != null) {
-                    Homescreen.viewGroup.findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(Homescreen.viewGroup.getStatusBarColor());
+                    Homescreen.viewGroup.findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(bgColor);
                 }
+                if (Homescreen.titleBar != null) {
+                    Homescreen.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
+                }
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(bgColor));
             }
         });
         Switch switchDeleteDownloads = findViewById(R.id.switchDeleteDownloads);

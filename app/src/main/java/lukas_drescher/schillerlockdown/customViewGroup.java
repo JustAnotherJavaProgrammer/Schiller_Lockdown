@@ -5,12 +5,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -48,7 +46,7 @@ public class customViewGroup extends LinearLayout {
             findViewById(R.id.linearLayoutStatusbar).setVisibility(View.VISIBLE);
         } else {
             LayoutInflater.from(getContext()).inflate(R.layout.statusbar_pro, this, true).setVisibility(VISIBLE);
-            findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(getStatusBarColor());
+            findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(Util.getStatusBarColor(getContext(), getResources()));
             makeHandlerForClock();
             statusBarAdded = true;
         }
@@ -57,17 +55,6 @@ public class customViewGroup extends LinearLayout {
     public void disableCustomStatusBar() {
         if (statusBarAdded && !AprilFool.isFirstOfApril()) {
             findViewById(R.id.linearLayoutStatusbar).setVisibility(View.GONE);
-        }
-    }
-
-    public int getStatusBarColor() {
-        switch (getDefaultSharedPreferences(getContext()).getInt("custom_statusbar_color", 0)) {
-            case 0:
-                return ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
-            case 1:
-                return ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
-            default:
-                return Color.BLACK;
         }
     }
 

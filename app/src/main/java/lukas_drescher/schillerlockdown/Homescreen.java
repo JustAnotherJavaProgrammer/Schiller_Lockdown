@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -41,6 +43,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 public class Homescreen extends AppCompatActivity {
 
     private static boolean isFirstOfApril = AprilFool.isFirstOfApril();
+    public static ActionBar titleBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class Homescreen extends AppCompatActivity {
         layoutInflater = getLayoutInflater();
         thisOne = this;
         loadHomescreen();
+        titleBar = getSupportActionBar();
+        titleBar.setBackgroundDrawable(new ColorDrawable(Util.getStatusBarColor(getApplicationContext(), getResources())));
         findViewById(R.id.ad_homescreen).setOnClickListener(AprilFool.adOnClick());
         try {
             preventStatusBarExpansion(getApplicationContext(), this, false);
@@ -330,7 +335,7 @@ public class Homescreen extends AppCompatActivity {
 
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
         if (overlay) {
-            localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+            localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         } else {
             localLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         }

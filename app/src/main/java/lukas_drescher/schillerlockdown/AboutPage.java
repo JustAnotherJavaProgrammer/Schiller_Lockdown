@@ -1,5 +1,6 @@
 package lukas_drescher.schillerlockdown;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ public class AboutPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Util.getStatusBarColor(getApplicationContext(), getResources())));
         ((TextView) findViewById(R.id.txtviewSchillerQuote)).setText(chooseRandom(R.array.schiller_quotes));
         if (AprilFool.isFirstOfApril()) {
             findViewById(R.id.ad_about_page).setVisibility(View.VISIBLE);

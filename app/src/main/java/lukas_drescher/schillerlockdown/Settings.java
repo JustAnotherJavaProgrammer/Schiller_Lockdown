@@ -33,6 +33,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 public class Settings extends AppCompatActivity {
 
     public static ActionBar titleBar;
+    Settings here = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,14 +247,7 @@ public class Settings extends AppCompatActivity {
                     default:
                         getDefaultSharedPreferences(getApplicationContext()).edit().putInt("custom_statusbar_color", 0).apply();
                 }
-                int bgColor = Util.getStatusBarColor(getApplicationContext(), getResources());
-                if (Homescreen.viewGroup != null) {
-                    Homescreen.viewGroup.findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(bgColor);
-                }
-                if (Homescreen.titleBar != null) {
-                    Homescreen.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
-                }
-                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(bgColor));
+                ChargingMonitor.resetColors(here);
             }
         });
         Switch switchDeleteDownloads = findViewById(R.id.switchDeleteDownloads);

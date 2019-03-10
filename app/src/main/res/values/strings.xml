@@ -38,7 +38,7 @@
     <string name="currentTime">UHRZEIT</string>
     <string name="unknown_percentage">\??%</string>
     <string name="status_bar_settings">Statusleiste:</string>
-    <string name="choose_status_bar_color">Farbe für die Statusleiste wählen:</string>
+    <string name="choose_status_bar_color">Farbe für die Statusleiste und die Titelzeilen der App wählen:</string>
     <string name="color_light_blue">Hellblau</string>
     <string name="color_dark_blue">Dunkelblau</string>
     <string name="color_black">Schwarz</string>

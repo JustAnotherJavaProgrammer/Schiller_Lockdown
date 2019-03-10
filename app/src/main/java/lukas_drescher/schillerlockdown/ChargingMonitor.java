@@ -13,28 +13,32 @@ public class ChargingMonitor extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.ACTION_POWER_CONNECTED")) {
-            getDefaultSharedPreferences(context).edit().putBoolean("custom_color_active", false).remove("custom_color").apply();
-            int bgColor = Util.getStatusBarColor(context, context.getResources());
-            if (Homescreen.viewGroup != null) {
-                Homescreen.viewGroup.findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(bgColor);
-            }
-            if (Homescreen.titleBar != null) {
-                Homescreen.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
-            }
-            if (AboutPage.titleBar != null) {
-                AboutPage.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
-            }
-            if (ChangePIN.titleBar != null) {
-                ChangePIN.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
-            }
-            if (Settings.titleBar != null) {
-                Settings.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
-            }
+            resetColors(context);
             DownloadDeletionTool.deleteDownloads();
             Toast.makeText(context, R.string.DownloadsDeleted, Toast.LENGTH_SHORT);
         }
         if (Homescreen.viewGroup != null) {
             Homescreen.viewGroup.setBatteryStateTextViewAndCorrespondingDrawable();
+        }
+    }
+
+    public static void resetColors(Context context) {
+        getDefaultSharedPreferences(context).edit().putBoolean("custom_color_active", false).remove("custom_color").apply();
+        int bgColor = Util.getStatusBarColor(context, context.getResources());
+        if (Homescreen.viewGroup != null) {
+            Homescreen.viewGroup.findViewById(R.id.linearLayoutStatusbar).setBackgroundColor(bgColor);
+        }
+        if (Homescreen.titleBar != null) {
+            Homescreen.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
+        }
+        if (AboutPage.titleBar != null) {
+            AboutPage.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
+        }
+        if (ChangePIN.titleBar != null) {
+            ChangePIN.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
+        }
+        if (Settings.titleBar != null) {
+            Settings.titleBar.setBackgroundDrawable(new ColorDrawable(bgColor));
         }
     }
 }

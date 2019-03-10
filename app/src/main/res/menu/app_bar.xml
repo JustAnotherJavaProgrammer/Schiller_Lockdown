@@ -2,6 +2,13 @@
     xmlns:support="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/change_color"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/ic_outline_palette_24px"
+        android:title="@string/change_color_scheme"
+        support:showAsAction="ifRoom" />
+    <item
         android:id="@+id/about_page"
         android:checkable="false"
         android:enabled="true"
@@ -16,6 +23,6 @@
         android:icon="@drawable/ic_settings_white_24px"
         android:title="@string/menu_settings"
         android:visible="true"
-        support:showAsAction="always" />
+        support:showAsAction="ifRoom" />
 
 </menu>

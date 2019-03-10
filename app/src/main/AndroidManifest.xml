@@ -30,6 +30,17 @@
         android:stateNotNeeded="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver
+            android:name=".ChargingMonitor"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".Homescreen"
             android:theme="@style/AppTheme.Launcher">
@@ -61,7 +72,6 @@
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
         </service>
-
         <service android:name=".DownloadDeletionTool" />
 
         <activity
@@ -75,6 +85,9 @@
         <activity
             android:name=".AboutPage"
             android:label="@string/about" />
+        <activity
+            android:name=".ColorChooser"
+            android:label="@string/change_color_scheme" />
     </application>
 
 </manifest>

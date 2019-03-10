@@ -57,7 +57,7 @@
     <string name="app_locked">Diese App ist gesperrt</string>
     <string name="enter_code_to_unlock">Bitte Code eingeben, um den Schutz für fünf Minuten zu deaktivieren:</string>
     <string name="empty" />
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_color_scheme">Farbschema ändern</string>
+    <string name="select_color">Farbe wählen:</string>
+    <string name="example_text">Beispieltext</string>
 </resources>

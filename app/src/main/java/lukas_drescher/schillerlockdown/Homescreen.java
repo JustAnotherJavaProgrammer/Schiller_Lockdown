@@ -129,8 +129,11 @@ public class Homescreen extends AppCompatActivity {
                 return true;
             case R.id.about_page:
                 kioskMode = false;
-                Intent intent = new Intent(getApplicationContext(), AboutPage.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), AboutPage.class));
+                break;
+            case R.id.change_color:
+                kioskMode = false;
+                startActivity(new Intent(getApplicationContext(), ColorChooser.class));
         }
 
         return super.onOptionsItemSelected(item);

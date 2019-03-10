@@ -80,6 +80,8 @@ public class AprilFool {
     }
 
     public static boolean isFirstOfApril() {
+        // For development and debug purposes
+//        return true;
         Calendar currentTime = Calendar.getInstance();
         return currentTime.get(Calendar.MONTH) == Calendar.APRIL && currentTime.get(Calendar.DAY_OF_MONTH) == 1;
     }

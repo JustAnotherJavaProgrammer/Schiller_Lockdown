@@ -10,4 +10,7 @@
     <string name="april_fool">April, April!</string>
     <string name="yes_i_want">Ja, ich will!</string>
     <string name="no_thanks">Nein, danke.</string>
+    <string name="april_app_locked">Diese App ist in Schiller-Lockdown BASIC nicht verfügbar</string>
+    <string name="enter_code_to_unlock_pro">Bitte gebe deinen Freischaltcode für die PRO-Version ein, um diese App freizuschalten:</string>
+    <string name="featur_pro_only">Diese Funktion ist nur in der PRO-Version verfügbar.</string>
 </resources>

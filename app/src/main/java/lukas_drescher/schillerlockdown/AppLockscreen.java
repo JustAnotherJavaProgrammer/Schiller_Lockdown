@@ -21,6 +21,7 @@ public class AppLockscreen extends ConstraintLayout {
     AppLockscreen here = this;
     AccessibilityEvent event;
     int currentColor = Util.getStatusBarColor(getContext(), getResources());
+    boolean aprilFoolsMode = AprilFool.isFirstOfApril();
 
     public AppLockscreen(Context context, WindowManager wm, AccessibilityEvent event) {
         super(context);
@@ -145,6 +146,7 @@ public class AppLockscreen extends ConstraintLayout {
 //                wm.removeView(here);
             }
         });
+        changeAprilFoolsMode();
     }
 
     public void changeColor() {
@@ -153,6 +155,16 @@ public class AppLockscreen extends ConstraintLayout {
         int childCount = me.getChildCount();
         for (int i = 0; i < childCount; i++) {
             me.getChildAt(i).setBackgroundColor(currentColor);
+        }
+    }
+
+    public void changeAprilFoolsMode() {
+        if (aprilFoolsMode) {
+            ((TextView) findViewById(R.id.lockscreen_title)).setText(R.string.april_app_locked);
+            ((TextView) findViewById(R.id.lockscreen_instructions)).setText(R.string.enter_code_to_unlock_pro);
+        } else {
+            ((TextView) findViewById(R.id.lockscreen_title)).setText(R.string.app_locked);
+            ((TextView) findViewById(R.id.lockscreen_instructions)).setText(R.string.enter_code_to_unlock);
         }
     }
 
@@ -179,6 +191,10 @@ public class AppLockscreen extends ConstraintLayout {
                 passwd = "";
                 passwdField.setText(passwd);
                 changeColor();
+            }
+            if (aprilFoolsMode != AprilFool.isFirstOfApril()) {
+                aprilFoolsMode = AprilFool.isFirstOfApril();
+                changeAprilFoolsMode();
             }
         }
     }

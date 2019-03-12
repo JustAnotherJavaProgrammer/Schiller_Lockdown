@@ -3,6 +3,8 @@ package lukas_drescher.schillerlockdown;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -126,8 +128,19 @@ public class AppLockscreen extends ConstraintLayout {
         findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDefaultSharedPreferences(getContext()).edit().putLong("disabled until", System.currentTimeMillis() + 300000).apply();
-                hide();
+                if (Integer.toString(getDefaultSharedPreferences(getContext().getApplicationContext()).getInt(getContext().getString(R.string.PIN), 0)).equals(passwd)) {
+                    getDefaultSharedPreferences(getContext()).edit().putLong("disabled until", System.currentTimeMillis() + 300000).apply();
+                    hide();
+                } else {
+                    passwd = "";
+                    passwdField.setBackgroundColor(Color.RED);
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            passwdField.setBackgroundColor(currentColor);
+                            passwdField.setText(passwd);
+                        }
+                    }, 500);
+                }
             }
         });
         findViewById(R.id.backToHome).setOnClickListener(new OnClickListener() {
@@ -186,16 +199,17 @@ public class AppLockscreen extends ConstraintLayout {
     public void show() {
         if (getVisibility() != VISIBLE) {
             setVisibility(VISIBLE);
+            passwd = "";
+            passwdField.setText(passwd);
             if (currentColor != Util.getStatusBarColor(getContext(), getResources())) {
                 currentColor = Util.getStatusBarColor(getContext(), getResources());
-                passwd = "";
-                passwdField.setText(passwd);
                 changeColor();
             }
             if (aprilFoolsMode != AprilFool.isFirstOfApril()) {
                 aprilFoolsMode = AprilFool.isFirstOfApril();
                 changeAprilFoolsMode();
             }
+            this.bringToFront();
         }
     }
 

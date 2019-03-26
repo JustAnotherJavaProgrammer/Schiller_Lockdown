@@ -55,6 +55,12 @@ public class Homescreen extends AppCompatActivity {
             DownloadDeletionTool.setAlarm(getApplicationContext());
         }
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable throwable) {
+                startActivity(new Intent(getApplicationContext(), Crash.class));
+            }
+        });
         setContentView(R.layout.activity_homescreen);
         try {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);

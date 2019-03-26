@@ -30,6 +30,9 @@
         android:stateNotNeeded="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".Crash"
+            android:label="@string/oh_shit"></activity>
 
         <receiver
             android:name=".ChargingMonitor"

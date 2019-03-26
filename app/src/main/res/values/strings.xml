@@ -60,4 +60,7 @@
     <string name="change_color_scheme">Farbschema ändern</string>
     <string name="select_color">Farbe wählen:</string>
     <string name="example_text">Beispieltext</string>
+    <string name="yeah_ok">Ja, gut&#8230;</string>
+    <string name="app_crashed">Schiller-Lockdown ist gerade abgestürzt.\nDas hätte jetzt vielleicht nicht unbedingt sein müssen, aber dafür lade ich dich zu einem kleinen Spiel ein:</string>
+    <string name="oh_shit">Ach du sch***!</string>
 </resources>

@@ -32,43 +32,48 @@ public class CheckForegroundApp extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Log.d("checker", AccessibilityEvent.eventTypeToString(event.getEventType()) + " (" + event.getPackageName() + ")");
         try {
-            Log.d("checker", event.getClassName().toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        loadWhiteList();
-        //if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-//        if (foregroundActivity == null || !event.getPackageName().equals(foregroundActivity.getPackageName())) {
-        boolean isRecentAppsScreen = event.getClassName().equals("com.android.systemui.recents.RecentsActivity") || event.getClassName().equals("com.android.systemui.recents.SeparatedRecentsActivity");
-        boolean isAllowed = isAllowed(event.getPackageName().toString());
-        if (!(isRecentAppsScreen || isAllowed)) {
-            Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-            sendBroadcast(closeDialog);
-            Log.w("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
-            if (event.getPackageName().equals("com.android.systemui") && event.getClassName().equals("android.widget.FrameLayout")) {
-                legacyLockscreen(event);
-            } else if (lockscreen == null) {
-                // Close every kind of system dialog
-                try {
-                    startLockscreen(event, true);
-                } catch (RuntimeException e) {
-                    try {
-                        startLockscreen(event, false);
-                    } catch (RuntimeException e2) {
-                        legacyLockscreen(event);
-                    }
-                }
-            } else {
-                lockscreen.show();
+            Log.d("checker", AccessibilityEvent.eventTypeToString(event.getEventType()) + " (" + event.getPackageName() + ")");
+            try {
+                Log.d("checker", event.getClassName().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } else if (lockscreen != null) {
-            lockscreen.hide();
-        }
+            loadWhiteList();
+            //if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+//        if (foregroundActivity == null || !event.getPackageName().equals(foregroundActivity.getPackageName())) {
+            boolean isRecentAppsScreen = event.getClassName().equals("com.android.systemui.recents.RecentsActivity") || event.getClassName().equals("com.android.systemui.recents.SeparatedRecentsActivity");
+            boolean isAllowed = isAllowed(event.getPackageName().toString());
+            if (!(isRecentAppsScreen || isAllowed)) {
+                Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+                sendBroadcast(closeDialog);
+                Log.w("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
+                if (event.getPackageName().equals("com.android.systemui") && event.getClassName().equals("android.widget.FrameLayout")) {
+                    legacyLockscreen(event);
+                } else if (lockscreen == null) {
+                    // Close every kind of system dialog
+                    try {
+                        startLockscreen(event, true);
+                    } catch (RuntimeException e) {
+                        try {
+                            startLockscreen(event, false);
+                        } catch (RuntimeException e2) {
+                            legacyLockscreen(event);
+                        }
+                    }
+                } else {
+                    lockscreen.show();
+                }
+            } else if (lockscreen != null) {
+                lockscreen.hide();
+            }
 //            foregroundActivity = event;
 //        }
-        //}
+            //}
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("checker", "This error was catched and the service will work normally.");
+        }
     }
 
     @Override

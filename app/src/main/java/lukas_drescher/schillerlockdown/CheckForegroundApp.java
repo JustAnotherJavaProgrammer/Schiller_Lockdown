@@ -48,9 +48,7 @@ public class CheckForegroundApp extends AccessibilityService {
                 Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
                 sendBroadcast(closeDialog);
                 Log.w("checker", "start Lockscreen (" + event.getPackageName() + "; " + AccessibilityEvent.eventTypeToString(event.getEventType()) + ";");
-                if (event.getPackageName().equals("com.android.systemui") && event.getClassName().equals("android.widget.FrameLayout")) {
-                    legacyLockscreen(event);
-                } else if (lockscreen == null) {
+                if (lockscreen == null) {
                     // Close every kind of system dialog
                     try {
                         startLockscreen(event, true);
@@ -63,6 +61,9 @@ public class CheckForegroundApp extends AccessibilityService {
                     }
                 } else {
                     lockscreen.show();
+                }
+                if (event.getPackageName().equals("com.android.systemui") && event.getClassName().equals("android.widget.FrameLayout")) {
+                    legacyLockscreen(event);
                 }
             } else if (lockscreen != null) {
                 lockscreen.hide();

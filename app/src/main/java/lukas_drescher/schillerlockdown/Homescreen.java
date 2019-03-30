@@ -55,12 +55,12 @@ public class Homescreen extends AppCompatActivity {
             DownloadDeletionTool.setAlarm(getApplicationContext());
         }
         super.onCreate(savedInstanceState);
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread thread, Throwable throwable) {
-                startActivity(new Intent(getApplicationContext(), Crash.class));
-            }
-        });
+//        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+//            @Override
+//            public void uncaughtException(Thread thread, Throwable throwable) {
+//                startActivity(new Intent(getApplicationContext(), Crash.class));
+//            }
+//        });
         setContentView(R.layout.activity_homescreen);
         try {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
@@ -78,17 +78,19 @@ public class Homescreen extends AppCompatActivity {
         titleBar = getSupportActionBar();
         titleBar.setBackgroundDrawable(new ColorDrawable(Util.getStatusBarColor(getApplicationContext(), getResources())));
         findViewById(R.id.ad_homescreen).setOnClickListener(AprilFool.adOnClick());
-        try {
-            preventStatusBarExpansion(getApplicationContext(), this, false);
-        } catch (RuntimeException e) {
-            Log.e("statusBarBlocker", "first error");
-            e.printStackTrace();
+        if (viewGroup == null) {
             try {
-                preventStatusBarExpansion(getApplicationContext(), this, true);
-            } catch (RuntimeException e2) {
-                Log.e("statusBarBlocker", "second error");
+                preventStatusBarExpansion(getApplicationContext(), this, false);
+            } catch (RuntimeException e) {
+                Log.e("statusBarBlocker", "first error");
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), R.string.status_bar_unblockable, Toast.LENGTH_LONG).show();
+                try {
+                    preventStatusBarExpansion(getApplicationContext(), this, true);
+                } catch (RuntimeException e2) {
+                    Log.e("statusBarBlocker", "second error");
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), R.string.status_bar_unblockable, Toast.LENGTH_LONG).show();
+                }
             }
         }
         if (getDefaultSharedPreferences(getApplicationContext()).getInt(getString(R.string.PIN), -1) == -1) {
@@ -323,7 +325,7 @@ public class Homescreen extends AppCompatActivity {
     protected void onDestroy() {
         list = null;
         thisOne = null;
-        viewGroup = null;
+        //viewGroup = null;
 
         if (kioskMode) {
             startActivity(this.getIntent());

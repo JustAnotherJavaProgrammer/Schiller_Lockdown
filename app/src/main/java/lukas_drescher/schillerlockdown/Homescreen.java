@@ -331,11 +331,11 @@ public class Homescreen extends AppCompatActivity {
             startActivity(this.getIntent());
         }
         super.onDestroy();
-        try {
-            viewGroup.onFinalize();
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+//        try {
+//            viewGroup.onFinalize();
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
     }
 
     static customViewGroup viewGroup;

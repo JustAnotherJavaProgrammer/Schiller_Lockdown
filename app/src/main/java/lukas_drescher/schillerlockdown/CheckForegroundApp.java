@@ -42,7 +42,7 @@ public class CheckForegroundApp extends AccessibilityService {
             loadWhiteList();
             //if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
 //        if (foregroundActivity == null || !event.getPackageName().equals(foregroundActivity.getPackageName())) {
-            boolean isRecentAppsScreen = event.getClassName().equals("com.android.systemui.recents.RecentsActivity") || event.getClassName().equals("com.android.systemui.recents.SeparatedRecentsActivity") || event.getClassName().equals("com.android.internal.app.ChooserActivity");
+            boolean isRecentAppsScreen = event.getClassName().equals("com.android.systemui.recents.RecentsActivity") || event.getClassName().equals("com.android.systemui.recents.SeparatedRecentsActivity") || event.getClassName().equals("com.android.internal.app.ChooserActivity") || event.getClassName().equals("com.android.internal.app.ResolverActivity");
             boolean isAllowed = isAllowed(event.getPackageName().toString());
             if (!(isRecentAppsScreen || isAllowed)) {
                 Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);

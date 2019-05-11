@@ -11,6 +11,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -229,7 +230,7 @@ public class Homescreen extends AppCompatActivity {
                 apps) {
             @Override
             @NonNull
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
                 if (convertView == null) {
                     convertView = layoutInflater.inflate(R.layout.list_item, null);
                 }
@@ -348,7 +349,9 @@ public class Homescreen extends AppCompatActivity {
         if (overlay) {
             localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         } else {
-            localLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                localLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            }
         }
         localLayoutParams.gravity = Gravity.TOP;
         localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |

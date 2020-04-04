@@ -84,7 +84,7 @@ public class CheckForegroundApp extends AccessibilityService {
     private void startLockscreen(AccessibilityEvent event, boolean systemOverlay) {
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(WINDOW_SERVICE);
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
-        localLayoutParams.type = systemOverlay ? WindowManager.LayoutParams.TYPE_SYSTEM_ERROR : WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        localLayoutParams.type = systemOverlay ? WindowManager.LayoutParams.TYPE_SYSTEM_ERROR : WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY;
         localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         lockscreen = new AppLockscreen(getApplicationContext(), wm, event);
         wm.addView(lockscreen, localLayoutParams);

@@ -350,7 +350,7 @@ public class Homescreen extends AppCompatActivity {
             localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                localLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+                localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
             }
         }
         localLayoutParams.gravity = Gravity.TOP;

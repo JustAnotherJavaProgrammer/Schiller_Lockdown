@@ -105,8 +105,6 @@ public class customViewGroup extends LinearLayout {
                 return R.drawable.ic_baseline_battery_charging_20;
             } else if (percentage <= 30) {
                 return R.drawable.ic_baseline_battery_charging_30;
-            } else if (percentage <= 30) {
-                return R.drawable.ic_baseline_battery_charging_30;
             } else if (percentage <= 50) {
                 return R.drawable.ic_baseline_battery_charging_50;
             } else if (percentage <= 60) {
@@ -121,8 +119,6 @@ public class customViewGroup extends LinearLayout {
         } else {
             if (percentage <= 20) {
                 return R.drawable.ic_baseline_battery_20;
-            } else if (percentage <= 30) {
-                return R.drawable.ic_baseline_battery_30;
             } else if (percentage <= 30) {
                 return R.drawable.ic_baseline_battery_30;
             } else if (percentage <= 50) {
